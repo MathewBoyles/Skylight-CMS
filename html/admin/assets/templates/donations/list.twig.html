@@ -1,0 +1,47 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/admin/index">Admin</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Donations</li>
+  </ol>
+</nav>
+
+<h2>Donations</h2>
+
+{% for alert in page.alerts %}
+<div class="alert alert-{{ alert.class }} alert-dismissible card-main fade show" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  {{ alert.message }}
+</div>
+{% endfor %}
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Donator</th>
+        <th>Amount</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for donation in page.donations %}
+      <tr{% if not donation.seen %} class="font-weight-bold"{% endif %}>
+        <td>
+          {{ donation.user.name }}
+          [<a href="mailto:{{ donation.user.email }}">{{ donation.user.email }}</a>]
+          {% if donation.user.phone %}
+          [<a href="tel:{{ donation.user.phone }}">{{ donation.user.phone }}</a>]
+          {% endif %}
+        </td>
+        <td>${{ (donation.amount / 100)|number_format(2) }}</td>
+        <td>{{ donation.timestamp|date("m/d/Y \- h:ia") }}</td>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

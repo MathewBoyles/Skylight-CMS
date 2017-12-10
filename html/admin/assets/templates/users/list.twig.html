@@ -1,0 +1,59 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/admin/index">Admin</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Users</li>
+  </ol>
+</nav>
+
+<h2>
+  Users
+  <a href="/admin/users/add" class="btn btn-light btn-sm"><i class="fa fa-plus"></i> Add user</a>
+</h2>
+
+{% for alert in page.alerts %}
+<div class="alert alert-{{ alert.class }} alert-dismissible card-main fade show" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  {{ alert.message }}
+</div>
+{% endfor %}
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in page.users %}
+      <tr>
+        <td>
+          {{ user.name }}
+          [<a href="mailto:{{ user.email }}">{{ user.email }}</a>]
+        </td>
+        <td>
+          <div class="btn-group pull-right">
+            <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Actions
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="/admin/users/manage?id={{ user.id }}">Manage</a>
+              {% if user.id != admin.id %}
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/admin/users/delete?id={{ user.id }}">Delete</a>
+              {% endif %}
+            </div>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

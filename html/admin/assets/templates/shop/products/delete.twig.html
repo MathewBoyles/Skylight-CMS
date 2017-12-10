@@ -1,0 +1,39 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/admin/index">Admin</a></li>
+    <li class="breadcrumb-item"><a href="/admin/shop/products">Products</a></li>
+    {% if page.product %}
+    <li class="breadcrumb-item"><a href="/admin/shop/products/manage?id={{ page.product.id }}">{{ page.product.title }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Delete</li>
+    {% else %}
+    <li class="breadcrumb-item active">Oops</li>
+    {% endif %}
+  </ol>
+</nav>
+
+<h2>Delete Product</h2>
+
+{% if page.product and not page.product.deleted %}
+<div>
+  <div class="alert alert-light card-main">Are you sure you wish to delete <em>{{ page.product.title }}</em>? <strong>This cannot be undone.</strong></div>
+
+  <form action="/admin/shop/products/delete?id={{ page.product.id }}" method="POST">
+    <input type="hidden" name="csrf" value="{{ admin.csrf }}" />
+    <input type="hidden" name="delete" value="1" />
+
+    <div class="text-right form-group">
+      <button class="btn btn-danger btn-sm">Delete product</button>
+    </div>
+
+    <div class="text-right">
+      <a href="/admin/shop/products" class="btn btn-primary btn-lg">Cancel</a>
+    </div>
+  </form>
+</div>
+{% else %}
+<div class="alert alert-light card-main">Product does not exist.</div>
+{% endif %}
+{% endblock %}

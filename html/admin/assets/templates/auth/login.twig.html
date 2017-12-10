@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Admin | {{ site.title }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% block css %}
+    <link rel="stylesheet" href="/admin/assets/css/style.css">
+    {% endblock %}
+  </head>
+  <body class="login">
+
+    <div class="container">
+      <div class="row">
+        <main class="col-sm-12 ml-sm-auto col-md-12 pt-3" role="main">
+          <div id="login_form">
+            <div class="logo-block">
+              <a href="/">
+                <img src="/assets/uploads/{{ site.logo }}" alt="{{ site.title }}">
+                <p>{{ site.title }} | Admin</p>
+              </a>
+            </div>
+
+            {% if page.message %}
+            <div class="alert alert-{{ page.message.class }} alert-dismissible fade show card-main" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              {{ page.message.message }}
+            </div>
+            {% endif %}
+
+            <div class="card card-main">
+              <div class="card-body">
+                <form method="POST" action="/admin/login">
+                  <div class="form-group">
+                    <label>Email address</label>
+                    <input type="email" name="email" class="form-control" placeholder="Enter email" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="Password" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Log In</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    {% block javascript %}
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/admin/assets/js/script.js"></script>
+    {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,49 @@
+#navbar {
+  padding: 0 1rem;
+
+  .navbar-brand {
+    > img {
+      height: 75px;
+    }
+  }
+
+  .navbar-nav {
+    .nav-social {
+      padding: 7px 15px;
+    }
+
+    .btn {
+      padding: 0.465rem 0.75rem;
+      width: 125px;
+    }
+  }
+
+  #navbarLinks {
+    .nav-sm {
+      display: none;
+    }
+    @media (max-width: 991px) {
+      .nav-sm {
+        display: list-item;
+      }
+
+      .nav-lg {
+        display: none;
+      }
+    }
+  }
+}
+
+#navbarSecondary {
+  > .navbar-nav {
+    margin: 0 auto;
+
+    > .nav-divider {
+      opacity: 0.3;
+      padding: 7px;
+    }
+  }
+  @media (max-width: 991px) {
+    display: none;
+  }
+}

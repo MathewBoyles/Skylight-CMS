@@ -1,0 +1,69 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/admin/index">Admin</a></li>
+    <li class="breadcrumb-item"><a href="/admin/pages">Pages</a></li>
+    {% if page.page %}
+    <li class="breadcrumb-item active">{{ page.page.title }}</li>
+    {% else %}
+    <li class="breadcrumb-item active">Oops</li>
+    {% endif %}
+  </ol>
+</nav>
+
+<h2>Manage Page</h2>
+
+{% if page.page %}
+<div>
+  {% if page.page.protected %}
+  <div class="alert alert-light card-main">This page is protected by the system or by the theme. Page configuration is locked.</div>
+  {% else %}
+  {% for alert in page.alerts %}
+  <div class="alert alert-{{ alert.class }} alert-dismissible card-main fade show" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ alert.message }}
+  </div>
+  {% endfor %}
+
+  <form action="/admin/pages/manage?id={{ page.page.id }}" method="POST">
+    <input type="hidden" name="csrf" value="{{ admin.csrf }}" />
+
+    <div class="alert alert-light card-main">
+      <label>Page title</label>
+      <input type="text" name="title" class="form-control" placeholder="Page title" value="{{ page.page.title }}" required>
+    </div>
+
+    <div class="alert alert-light card-main">
+      <label>Page link</label>
+      <div class="input-group">
+        <span class="input-group-addon">/</span>
+        <input type="text" name="alias" class="form-control" placeholder="Page link" value="{{ page.page.alias }}" required>
+      </div>
+      <small class="form-text text-muted">Any menu link pointing to this page will need to be updated if changed.</small>
+    </div>
+
+    <div class="alert alert-light card-main">
+      <label>Page template</label>
+      <select name="template" class="form-control" name="template">
+      {% for templateID, template in page.theme.pages %}
+        {% if template.selectable %}
+        <option value="{{ templateID }}"{% if templateID == page.page.template %} selected{% endif %}>{{ template.title }}</option>
+        {% endif %}
+      {% endfor %}
+      </select>
+    </div>
+
+    <div class="text-right">
+      <button class="btn btn-primary">Save changes</button>
+    </div>
+  </form>
+  {% endif %}
+</div>
+{% else %}
+<div class="alert alert-light card-main">Page does not exist.</div>
+{% endif %}
+{% endblock %}

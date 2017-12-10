@@ -1,0 +1,82 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/admin/index">Admin</a></li>
+    <li class="breadcrumb-item"><a href="/admin/menus">Menus</a></li>
+    {% if page.menu %}
+    <li class="breadcrumb-item active" aria-current="page">{{ page.menu.title }}</li>
+    {% else %}
+    <li class="breadcrumb-item active">Oops</li>
+    {% endif %}
+  </ol>
+</nav>
+
+<h2>Menus</h2>
+
+{% if page.menu %}
+<div class="alert alert-light card-main">
+  <h5>{{ page.menu.title }}</h5>
+  <div>{{ page.menu.description }}</div>
+</div>
+
+<form action="/admin/menus/manage?id={{ page.menu.id }}" method="POST" id="menuAdd" class="alert alert-light card-main">
+  <input type="hidden" name="csrf" value="{{ admin.csrf }}" />
+
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <label>Link title</label>
+        <input type="text" class="form-control" name="title" placeholder="Link title" required>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label>Link URL</label>
+        <input type="text" class="form-control" name="link" placeholder="Link URL" required>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <label>
+        <input type="checkbox" name="external" value="1" /> Open in new tab
+      </label>
+    </div>
+    <div class="col text-right">
+      <button class="btn btn-primary">Add Link</button>
+    </div>
+  </div>
+</form>
+
+<div class="alert alert-info card-main">
+  <i class="fa fa-info"></i> Drag-and-drop links in the list below to re-arrage them. The order below will be reflected on the website.
+</div>
+
+<form action="/admin/menus/manage?id={{ page.menu.id }}" method="POST" id="menuSort">
+  <input type="hidden" name="csrf" value="{{ admin.csrf }}" />
+  <input type="hidden" name="action" value="sort" />
+
+  <div class="form-group">
+    <ul class="sortable" id="menuSort">
+      {% for link in page.menu.links %}
+      <li class="ui-state-default" data-id="{{ link.id }}">
+        <i class="fa fa-trash pull-right"></i>
+        <span class="ui-icon ui-icon-arrowthick-2-n-s"></span> {{ link.title }}
+        <input type="hidden" name="sort[]" value="{{ link.id }}" />
+        <input type="hidden" name="data[]" value="" />
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="text-right">
+    <button class="btn btn-primary">Save Changes</button>
+  </div>
+</form>
+{% else %}
+<div class="alert alert-light card-main">Menu does not exist.</div>
+{% endif %}
+{% endblock %}

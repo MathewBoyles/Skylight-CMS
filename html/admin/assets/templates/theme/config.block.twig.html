@@ -1,0 +1,26 @@
+{% if item.type == 'image' %}
+<input type="hidden" name="value[{{ itemID }}]" value="{{ item.value }}">
+<div class="img-picker text-center" data-picker="{{ itemID }}">
+  {% for image in page.images %}
+  <img src="/assets/uploads/thumbnail/{{ image }}" alt="{{ image }}" class="img-thumbnail{% if image == item.value %} active{% endif %}" data-value="{{ image }}" width="100" />
+  {% endfor %}
+</div>
+<div class="text-center">
+  <br />
+  <small>
+    <a href="/admin/images" target="_blank" class="editor-link">Manage images <i class="fa fa-external-link"></i></a>
+  </small>
+</div>
+{% elseif item.type == 'color' %}
+<input type="text" name="value[{{ itemID }}]" value="{{ item.value }}" class="jscolor form-control"{% if item.required %} required{% endif %}>
+{% elseif item.type == 'text' %}
+<textarea name="value[{{ itemID }}]" class="form-control"{% if item.required %} required{% endif %}>{{ item.value }}</textarea>
+{% elseif item.type == 'html' %}
+<textarea name="value[{{ itemID }}]" class="form-control summernote"{% if item.required %} required{% endif %}>{{ item.value }}</textarea>
+{% elseif item.type == 'checkbox' %}
+<label>
+  <input type="checkbox" name="value[{{ itemID }}]"{% if item.value %} checked{% endif %}> Toggle
+</label>
+{% else %}
+<input type="text" name="value[{{ itemID }}]" value="{{ item.value }}" class="form-control"{% if item.required %} required{% endif %}>
+{% endif %}

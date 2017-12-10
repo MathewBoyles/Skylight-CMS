@@ -1,0 +1,55 @@
+.card-main {
+  box-shadow: 0 7px 14px 0 rgba(50,50,93,.1), 0 3px 6px 0 rgba(0,0,0,.07);
+  margin-bottom: 15px;
+
+  table {
+    margin-bottom: 0;
+
+    thead {
+      tr {
+        th {
+          &:first-child {
+            width: 70%;
+          }
+
+          &:last-child {
+            width: 10%;
+          }
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        color: #3297d3;
+
+        .badge.badge-line {
+          background: none;
+          border: 1px solid currentColor;
+          color: inherit;
+          float: right;
+          margin-left: 5px;
+          margin-top: 2px;
+          padding: 0.4em 0.7em;
+          text-transform: uppercase;
+        }
+
+        &.is-link,
+        &[data-href] {
+          cursor: pointer;
+
+          &:hover {
+            background: #f5f5f5;
+            color: #333;
+          }
+        }
+      }
+    }
+  }
+}
+
+.card {
+  > .card-header.card-more {
+    line-height: 29px;
+  }
+}

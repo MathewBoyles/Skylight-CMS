@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="/assets/css/editor.css" />
+
+<div id="editor-nav">
+  <div class="container">
+    <div class="col-12">
+      <div class="editor-status">
+        <i class="fa fa-pencil"></i>
+        <span data-editor="['value','master_title','input']" class="editor-edit">{{ title }}</span>
+      </div>
+
+      <div class="editor-actions">
+        <a href="/admin/pages" class="btn btn-outline-light editor-link" data-editor="['action','','close']" id="editorClose">Close</a>
+        <button class="btn btn-primary" data-editor="['action','','save']" id="editorSave" disabled>Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/assets/js/editor.js"></script>
+<script>
+editor.id = '{{ id }}';
+editor.csrf = '{{ admin.csrf }}';
+</script>

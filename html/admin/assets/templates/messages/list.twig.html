@@ -1,0 +1,50 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/admin/index">Admin</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Messages</li>
+  </ol>
+</nav>
+
+<h2>Messages</h2>
+
+{% for alert in page.alerts %}
+<div class="alert alert-{{ alert.class }} alert-dismissible card-main fade show" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  {{ alert.message }}
+</div>
+{% endfor %}
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Subject</th>
+        <th>Date</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for message in page.messages %}
+      <tr{% if not message.seen %} class="font-weight-bold"{% endif %}>
+        <td>
+          {{ message.data.name }}
+          [<a href="mailto:{{ message.data.email }}">{{ message.data.email }}</a>]
+        </td>
+        <td>{{ message.data.subject }}</td>
+        <td>{{ message.timestamp|date("m/d/Y \- h:ia") }}</td>
+        <td>
+          <div class="pull-right">
+            <a href="/admin/messages/view?id={{ message.id }}" class="btn btn-light btn-sm">View</a>
+          </div>
+        </td>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+  <nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item"><a href="/shop">Shop</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Cart</li>
+    </ol>
+  </nav>
+
+  {{ parent() }}
+
+  {% if editor %}
+  <div class="alert alert-info" role="alert">
+    <small><i class="fa fa-info"></i> Editor note:</small>
+    <br />Cart items will be shown to visitors. The below message will be shown if no items are in the user's cart. <em>Users cannot see this message.</em>
+  </div>
+  {% endif %}
+
+  {% if cart.items and not editor %}
+  <form action="/shop/cart" method="POST">
+    <table class="table table-responsive-sm cart-table">
+      <thead>
+        <tr>
+          <th scope="col">Item</th>
+          <th scope="col">Item price</th>
+          <th scope="col">Quanitity</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for itemID, item in cart.items %}
+        <tr>
+          <td>
+            <a href="/shop/product?id={{ item.item.id }}">
+              <img src="/assets/uploads/{{ item.item.image }}" width="50">
+              <span>{{ item.item.title }}</span>
+            </a>
+          </td>
+          <td>${{ (item.item.price / 100)|number_format(2) }}</td>
+          <td><input type="number" name="quantity[{{ item.item.id }}]" min="0" max="{{ item.item.quantity }}" value="{{ item.quantity }}"></td>
+          <td>${{ ((item.item.price / 100) * item.quantity)|number_format(2) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="row">
+      <div class="col-6">
+        <button class="btn btn-light">Update cart</button>
+      </div>
+      <div class="col-6 text-right">
+        <p>Total: ${{ (cart.total / 100)|number_format(2) }}</p>
+      </div>
+    </div>
+  </form>
+
+  <div class="row">
+    <div class="col">&nbsp;</div>
+    <div class="col-6 col-sm-3">
+      <a href="/shop/cart/checkout" class="btn btn-primary btn-block"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Checkout</a>
+    </div>
+  </div>
+  {% else %}
+  <div data-editor="['value','empty_message','content']">{% if page.empty_message %}{{ page.empty_message|raw }}{% else %}There are no items in your cart.{% endif %}</div>
+  {% endif %}
+
+{% endblock %}
+
+{% block cartFAB %}{% endblock %}

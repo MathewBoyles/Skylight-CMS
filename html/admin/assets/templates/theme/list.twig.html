@@ -1,0 +1,38 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/admin/index">Admin</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Theme Settings</li>
+  </ol>
+</nav>
+
+<h2>Theme Settings</h2>
+
+<div class="alert alert-info card-main">
+  <small>
+    <em>Current theme:</em>
+  </small>
+  <h5 class="theme-name">
+    <div>{{ page.theme.name }} <small class="theme-version">Version {{ page.theme.version }}</small></div>
+    <small class="theme-author">By <a{% if page.theme.author_link %} href="{{ page.theme.author_link }}" target="_blank"{% endif %}>{{ page.theme.author }}</a></small>
+  </h5>
+</div>
+
+<div class="alert alert-light card-main">
+  <h5>Branding</h5>
+  <p>Site logo, title and description.</p>
+  <a href="/admin/theme/config?id=branding">Settings</a>
+</div>
+
+{% for configID, config in page.theme.config %}
+<div class="alert alert-light card-main">
+  <h5>{{ config.title }}</h5>
+  {% if config.description %}
+  <p>{{ config.description }}</p>
+  {% endif %}
+  <a href="/admin/theme/config?id={{ configID }}">Settings</a>
+</div>
+{% endfor %}
+{% endblock %}

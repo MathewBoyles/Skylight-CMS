@@ -1,0 +1,6 @@
+._*
+.DS_Store
+/vendor/
+/config/cache/
+/html/node_modules/
+/config/database.php

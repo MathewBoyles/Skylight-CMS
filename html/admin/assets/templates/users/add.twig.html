@@ -1,0 +1,52 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/admin/index">Admin</a></li>
+    <li class="breadcrumb-item"><a href="/admin/users">Users</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Create Account</li>
+  </ol>
+</nav>
+
+<h2>Create Account</h2>
+
+{% for alert in page.alerts %}
+<div class="alert alert-{{ alert.class }} alert-dismissible card-main fade show" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  {{ alert.message }}
+</div>
+{% endfor %}
+
+<form action="/admin/users/add" method="POST">
+  <input type="hidden" name="csrf" value="{{ admin.csrf }}" />
+
+  <div class="alert alert-light card-main">
+    <label>Name</label>
+    <input type="text" name="name" class="form-control" placeholder="Name" required>
+  </div>
+
+  <div class="alert alert-light card-main">
+    <label>Email</label>
+    <input type="email" name="email" class="form-control" placeholder="Email" required>
+  </div>
+
+  <div class="alert alert-light card-main">
+    <label>Password</label>
+    <div class="row">
+      <div class="col-6">
+        <input type="password" name="password" class="form-control" placeholder="Password" required>
+      </div>
+      <div class="col-6">
+        <input type="password" name="password_confirm" class="form-control" placeholder="Password (confirm)" required>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-right">
+    <button class="btn btn-primary">Create account</button>
+  </div>
+</form>
+{% endblock %}

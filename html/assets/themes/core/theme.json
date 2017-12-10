@@ -1,0 +1,181 @@
+{
+  "name": "Core",
+  "version": "1.0.0",
+  "uri": "core",
+  "link": false,
+  "author": "Mathew Boyles",
+  "author_link": "https://mathewboyles.com",
+  "pages": {
+    "page": {
+      "title": "Default Page",
+      "template": "page",
+      "selectable": true,
+      "middleware": []
+    },
+    "contact": {
+      "title": "Contact Form Page",
+      "template": "contact",
+      "selectable": true,
+      "middleware": ["contact.php"]
+    },
+    "shop": {
+      "title": "Storefront",
+      "template": "shop",
+      "selectable": false,
+      "middleware": ["shop/front.php"]
+    },
+    "shop.product": {
+      "title": "Product Page",
+      "template": "shop.product",
+      "selectable": false,
+      "middleware": ["shop/product.php"]
+    },
+    "shop.checkout": {
+      "title": "Checkout",
+      "template": "shop.checkout",
+      "selectable": false,
+      "middleware": ["shop/checkout.php"]
+    },
+    "shop.cart": {
+      "title": "Cart",
+      "template": "shop.cart",
+      "selectable": false,
+      "middleware": ["shop/cart.php"]
+    },
+    "shop.success": {
+      "title": "Shop Success",
+      "template": "shop.success",
+      "selectable": false,
+      "middleware": ["shop/success.php"]
+    },
+    "donate": {
+      "title": "Donation Page",
+      "template": "donate",
+      "selectable": false,
+      "middleware": []
+    },
+    "donate.success": {
+      "title": "Donation Success",
+      "template": "donate.success",
+      "selectable": false,
+      "middleware": ["donate/success.php"]
+    }
+  },
+  "navs": {
+    "secondary": {
+      "title": "Hero nav",
+      "description": "Vertical navigation bar directly under the hero."
+    },
+    "sidebar": {
+      "title": "Sidebar",
+      "description": "Main sidebar navigation."
+    }
+  },
+  "config": [{
+      "title": "Color scheme",
+      "description": "",
+      "options": {
+        "primary_color": {
+          "type": "color",
+          "title": "Primary color",
+          "description": "",
+          "required": true,
+          "default": "EA7A01"
+        },
+        "secondary_color": {
+          "type": "color",
+          "title": "Secondary color",
+          "description": "",
+          "required": true,
+          "default": "4D396E"
+        }
+      }
+    },
+    {
+      "title": "Hero",
+      "description": "",
+      "options": {
+        "default_hero": {
+          "type": "image",
+          "title": "Default hero image",
+          "description": "",
+          "required": false,
+          "default": "cover.jpg"
+        }
+      }
+    },
+    {
+      "title": "Social media",
+      "description": "Include links to your social media profiles in the site navigation.",
+      "options": {
+        "facebook": {
+          "type": "input",
+          "title": "Facebook",
+          "description": "",
+          "required": false,
+          "default": ""
+        },
+        "twitter": {
+          "type": "input",
+          "title": "Twitter",
+          "description": "",
+          "required": false,
+          "default": ""
+        }
+      }
+    },
+    {
+      "title": "Navigation buttons",
+      "description": "Toggle Shop and Donate buttons in the site navigation menu.",
+      "options": {
+        "shop_button": {
+          "type": "checkbox",
+          "title": "Display Shop button",
+          "description": "",
+          "required": false,
+          "default": "1"
+        },
+        "donate_button": {
+          "type": "checkbox",
+          "title": "Display Donate button",
+          "description": "",
+          "required": false,
+          "default": "1"
+        }
+      }
+    },
+    {
+      "title": "Footer",
+      "description": "",
+      "options": {
+        "footer": {
+          "type": "text",
+          "title": "Footer content",
+          "description": "Additional content to be displayed in the footer, above the copyright notice.",
+          "required": false,
+          "default": ""
+        }
+      }
+    },
+    {
+      "title": "Recaptcha",
+      "description": "Protect contact forms from spam.",
+      "options": {
+        "recaptcha_key": {
+          "type": "input",
+          "title": "Site key",
+          "description": "",
+          "required": true,
+          "default": ""
+        },
+        "recaptcha_secret": {
+          "type": "input",
+          "title": "Site secret",
+          "description": "",
+          "required": true,
+          "default": ""
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{% extends "layout.twig.html" %}
+
+{% block hero %}
+<div id="hero" class="hero-lg">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7 hero-content">
+        <div>
+          <h3>{% if editor %}Product{% else %}{{ page.item.title }}{% endif %}</h3>
+        </div>
+      </div>
+      <div class="col"></div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+  {% if editor %}
+  <div class="alert alert-info" role="alert">
+    <small><i class="fa fa-info"></i> Editor note:</small>
+    <br />This page has no editor options. <em>Users cannot see this message.</em>
+  </div>
+  {% else %}
+  <nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item"><a href="/shop">Shop</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Product</li>
+    </ol>
+  </nav>
+
+  <div class="content-grid shop-grid">
+    <div class="grid-item">
+      <div class="row shop-item">
+        <div class="grid-image col-12 col-xs-6 col-sm-4">
+          <img src="/assets/uploads/{{ page.item.image }}">
+        </div>
+        <div class="grid-content col-12 col-xs-6 col-sm-8">
+          <h2 class="item-title">{{ page.item.title }}</h2>
+          <p class="item-price">
+            ${{ (page.item.price / 100)|number_format(2) }}
+            {% if page.item.compare_price and page.item.compare_price > page.item.price %}
+            <small class="item-compare">
+              <s class="text-muted">${{ (page.item.compare_price / 100)|number_format(2) }}</s>
+            </small>
+            {% endif %}
+          </p>
+          <div>{{ page.item.description|raw }}</div>
+          <br />
+          {% if page.item.quantity > 0 or page.item.quantity == "-10" %}
+          <form action="/shop/cart" method="POST">
+            <input type="hidden" name="add" value="{{ page.item.id }}">
+
+            <button class="btn btn-primary btn-sm item-cart"{% if editor %} disabled{% endif %}>Add to Cart</button>
+          </form>
+          {% else %}
+          <span class="item-oos text-danger">Out of Stock</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,36 @@
+#login_form {
+  margin: 0 auto;
+  max-width: 500px;
+  width: 100%;
+
+  > .logo-block {
+    color: #909090;
+    text-align: center;
+    margin: 0 0 50px;
+
+    a {
+      color: #909090;
+      text-decoration: none;
+    }
+
+    img {
+      margin-bottom: 10px;
+      max-height: 75px;
+      max-width: 200px;
+    }
+  }
+
+  > .card {
+    border-radius: 0;
+    margin-bottom: 30px;
+
+    > .card-body {
+      > form {
+        > .forgot-password {
+          float: right;
+          margin-top: 11px;
+        }
+      }
+    }
+  }
+}

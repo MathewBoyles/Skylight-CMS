@@ -1,0 +1,55 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/admin/index">Admin</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Orders</li>
+  </ol>
+</nav>
+
+<h2>Orders</h2>
+
+{% for alert in page.alerts %}
+<div class="alert alert-{{ alert.class }} alert-dismissible card-main fade show" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  {{ alert.message }}
+</div>
+{% endfor %}
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Purchaser</th>
+        <th>Status</th>
+        <th>Total</th>
+        <th>Date</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in page.orders %}
+      <tr{% if not order.fulfilled %} class="font-weight-bold"{% endif %}>
+        <td>
+          {{ order.user.name }}
+          [<a href="mailto:{{ order.user.email }}">{{ order.user.email }}</a>]
+          {% if order.user.phone %}
+          [<a href="tel:{{ order.user.phone }}">{{ order.user.phone }}</a>]
+          {% endif %}
+        </td>
+        <td>{% if order.fulfilled %}Fulfilled{% else %}Unfulfilled{% endif %}</td>
+        <td>${{ (order.total / 100)|number_format(2) }}</td>
+        <td>{{ order.timestamp|date("m/d/Y") }}</td>
+        <td>
+          <div class="pull-right">
+            <a href="/admin/shop/orders/view?id={{ order.id }}" class="btn btn-light btn-sm">View</a>
+          </div>
+        </td>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

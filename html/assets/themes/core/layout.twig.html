@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{% if editor %}Editor{% else %}{{ title }}{% endif %} | {{ site.title }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="description" content="{{ site.description }}">
+
+    {% block css %}
+    <link rel="stylesheet" href="/assets/themes/core/css/style.css">
+
+    <style>
+    .btn:not(.btn-inherit).btn-primary {
+      background: #{{ config.primary_color }}!important;
+      border-color: #{{ config.primary_color }}!important;
+    }
+
+    h1 {
+      color: #{{ config.primary_color }}!important;
+    }
+
+    .btn:not(.btn-inherit).btn-secondary {
+      background: #{{ config.secondary_color }}!important;
+      border-color: #{{ config.secondary_color }}!important;
+    }
+
+    {% if config.secondary_color %}
+    #hero {
+      background-image: url(/assets/uploads/{{ config.default_hero }});
+    }
+    {% endif %}
+    </style>
+    {% endblock %}
+  </head>
+  <body{% if editor %} class="editor"{% endif %}>
+
+    {% block cartFAB %}
+    {% if cart.count and not editor %}
+    <a href="/shop/cart" id="cartFAB">
+      <span>{{ cart.count }}</span>
+      <i class="fa fa-shopping-cart"></i>
+    </a>
+    {% endif %}
+    {% endblock %}
+
+    <nav class="navbar navbar-light bg-white justify-content-between navbar-expand-lg" id="navbar">
+      <div class="container">
+        <a href="/" class="navbar-brand">
+          <img src="/assets/uploads/{{ site.logo }}" alt="{{ site.title }}" />
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarLinks" aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarLinks">
+          <ul class="navbar-nav mr-auto"></ul>
+          <ul class="navbar-nav">
+            {% for link in navs.sidebar %}
+            <li class="nav-item nav-sm">
+              <a class="nav-link{% if link.active %} active{% endif %}" href="{{ link.link }}"{% if link.external %} target="_blank"{% endif %}>
+                {{ link.title }}
+              </a>
+            </li>
+            {% endfor %}
+
+            {% for link in navs.secondary %}
+            <li class="nav-item nav-sm">
+              <a class="nav-link{% if link.active %} active{% endif %}" href="{{ link.link }}"{% if link.external %} target="_blank"{% endif %}>
+                {{ link.title }}
+              </a>
+            </li>
+            {% endfor %}
+
+            {% if config.shop_button %}
+            <li class="nav-item nav-sm">
+              <a class="nav-link{% if alias == 'shop' %} active{% endif %}" href="/shop">
+                Shop
+              </a>
+            </li>
+            {% endif %}
+
+            {% if config.donate_button %}
+            <li class="nav-item nav-sm">
+              <a class="nav-link{% if alias == 'donate' %} active{% endif %}" href="/donate">
+                Donate
+              </a>
+            </li>
+            {% endif %}
+
+            {% if config.facebook %}
+            <li class="nav-item nav-sm">
+              <a class="nav-link" href="{{ config.facebook }}" target="_blank">
+                Facebook
+              </a>
+            </li>
+            <li class="nav-item nav-social nav-lg">
+              <a class="nav-link" href="{{ config.facebook }}" target="_blank">
+                <i class="fa fa-facebook"></i>
+              </a>
+            </li>
+            {% endif %}
+
+            {% if config.twitter %}
+            <li class="nav-item nav-sm">
+              <a class="nav-link" href="{{ config.twitter }}" target="_blank">
+                Twitter
+              </a>
+            </li>
+            <li class="nav-item nav-social nav-lg">
+              <a class="nav-link" href="{{ config.twitter }}" target="_blank">
+                <i class="fa fa-twitter"></i>
+              </a>
+            </li>
+            {% endif %}
+
+            {% if config.shop_button %}
+            <li class="nav-item nav-lg">
+              <a class="nav-link" href="/shop">
+                <span class="btn btn-primary text-uppercase">Shop</span>
+              </a>
+            </li>
+            {% endif %}
+
+            {% if config.donate_button %}
+            <li class="nav-item nav-lg">
+              <a class="nav-link" href="/donate">
+                <span class="btn btn-secondary text-uppercase">Donate</span>
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    {% block hero %}
+    <div data-value="{{ page.hero_image }}" data-editor="['value','hero_image','attr']" id="hero" {% if page.hero_image %}style="background-image:url(/assets/uploads/{{ page.hero_image }});"{% endif %}{% if page.hero_video is empty %}class="hero-lg"{% endif %}>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 hero-content">
+            <div>
+              <h3 data-editor="['value','hero_title','content']">{{ page.hero_title|raw }}</h3>
+              <div data-editor="['value','hero_caption','content']">{{ page.hero_caption|raw }}</div>
+
+              {% if page.hero_video %}
+              <button class="btn btn-sm btn-primary btn-video text-uppercase">Watch Video</button>
+              {% endif %}
+
+              {% if editor %}
+              <div class="editor">
+                <button class="btn btn-secondary btn-inherit editor" data-editor="['action','hero_image','open']">Edit Image</button>
+                <button class="btn btn-secondary btn-inherit editor" data-editor="['action','hero_video','open']">Edit Video</button>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-5 hero-video">
+            <div class="embed-responsive embed-responsive-16by9">
+              {% if page.hero_video is not empty or editor %}
+              <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ page.hero_video }}?rel=0&amp;controls=0&amp;showinfo=0" data-value="{{ page.hero_video }}" data-editor="['value','hero_video','attr']" allowfullscreen></iframe>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbarSecondary">
+      <ul class="navbar-nav">
+        {% for link in navs.secondary %}
+        {% if loop.index != 1 %}<li class="nav-item nav-divider">-</li>{% endif %}
+        <li class="nav-item">
+          <a class="nav-link{% if link.active %} active{% endif %}" href="{{ link.link }}"{% if link.external %} target="_blank"{% endif %}>{{ link.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
+
+    <div class="container" id="wrapper">
+      <div class="row">
+        <div class="col-lg-3" id="sidebar">
+          <ul>
+            {% for link in navs.sidebar %}
+            <li>
+              <a href="{{ link.link }}"{% if link.active %} class="active"{% endif %}{% if link.external %} target="_blank"{% endif %}>
+                <span>{{ link.title }}</span>
+                <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="col-lg-9" id="content">
+          {% block content %}
+            <div id="page" data-editor="['value','content','summernote']">{{ page.content|raw }}</div>
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+
+    <footer id="footer" class="bg-light">
+      <div class="container">{% if config.footer %}{{ config.footer }}
+
+        {% endif %}&copy; {{ year }} {{ site.title }}. All Rights Reserved.</div>
+    </footer>
+
+    <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="videoModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Watch Video</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body"></div>
+        </div>
+      </div>
+    </div>
+
+    {% block javascript %}
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/assets/themes/core/js/script.js"></script>
+    {% endblock %}
+
+    {{ editor|raw }}
+  </body>
+</html>

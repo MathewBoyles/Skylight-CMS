@@ -1,0 +1,41 @@
+<div class="modal fade" tabindex="-1" role="dialog" data-editor="['modal','hero_video']" id="heroVideoModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Hero Video</h5>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>YouTube URL</label>
+          <input class="form-control" aria-describedby="heroVideoHelp" placeholder="e.g. https://www.youtube.com/watch?v=aboZctrHfK8" id="heroVideoInput">
+          <small id="heroVideoHelp" class="form-text text-muted">Input the full URL to the YouTube playback page. Leave blank to disable.</small>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" data-editor="['modal','hero_image']" id="heroImageModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Hero Image</h5>
+      </div>
+      <div class="modal-body text-center">
+        <span>Click an image to select it as the new hero_</span>
+        <div>Loading...</div>
+        <small>
+          <a href="/admin/images" target="_blank" class="editor-link">Manage images <i class="fa fa-external-link"></i></a>
+        </small>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/assets/themes/core/js/editor.js"></script>

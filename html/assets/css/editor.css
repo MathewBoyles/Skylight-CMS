@@ -1,0 +1,34 @@
+@import url("/node_modules/summernote/dist/summernote-bs4.css");
+body.editor {
+  padding-top: 50px; }
+  body.editor .editor-edit,
+  body.editor [contenteditable] {
+    border-bottom: 1px dotted #ababab; }
+  body.editor .note-editor {
+    background: #FFF; }
+  body.editor #editor-nav {
+    background: #4d3a6e;
+    color: #FFF;
+    height: 50px;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; }
+    body.editor #editor-nav .editor-status {
+      display: inline-block;
+      padding-top: 12px; }
+    body.editor #editor-nav .editor-actions {
+      float: right; }
+      body.editor #editor-nav .editor-actions > .btn {
+        margin-top: 8px;
+        padding: 0.3rem 0.75rem;
+        width: 75px; }
+        body.editor #editor-nav .editor-actions > .btn.btn-primary {
+          margin-left: 10px;
+          width: 100px; }
+
+body:not(.editor) .editor {
+  display: none !important; }
+
+/*# sourceMappingURL=editor.css.map */

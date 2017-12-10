@@ -1,0 +1,9 @@
+<FilesMatch ".*\.twig\..*$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch ".*\.php">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>

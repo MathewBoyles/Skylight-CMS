@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Administration | {{ site.title }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% block css %}
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/admin/assets/css/style.css">
+    {% endblock %}
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+      <a class="navbar-brand" href="/admin/index">Administration</a>
+      <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto mb-hide"></ul>
+
+        <ul class="navbar-nav mb-hide">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hello, {{ admin.name }}</a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a class="dropdown-item" href="/admin/users/manage?id={{ admin.id }}">Account</a>
+              <a class="dropdown-item" href="/admin/logout" id="logout">Log Out</a>
+            </div>
+          </li>
+        </ul>
+
+        {% for links in links %}
+        <ul class="navbar-nav mb-show">
+          {% for link in links %}
+          <li class="nav-item">
+            <a class="nav-link{% if page.active == link.active %} active{% endif %}" href="{{ link.link }}"{% if link.external %} target="_blank"{% endif %}>
+              {{ include(template_from_string(link.title)) }}{% if page.active == link.active %} <span class="sr-only">(current)</span>{% endif %}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endfor %}
+
+        <ul class="navbar-nav mb-show">
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/users?id={{ admin.id }}">Account</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/logout" id="logoutSM">Log Out</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <form id="logoutForm" action="/admin/logout" method="POST">
+      <input type="hidden" name="csrf" value="{{ admin.csrf }}" />
+    </form>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+          {% for links in links %}
+          <ul class="nav nav-pills flex-column">
+            {% for link in links %}
+            <li class="nav-item">
+              <a class="nav-link{% if page.active == link.active %} active{% endif %}" href="{{ link.link }}"{% if link.external %} target="_blank"{% endif %}>
+                {{ include(template_from_string(link.title)) }}{% if page.active == link.active %} <span class="sr-only">(current)</span>{% endif %}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+          {% endfor %}
+        </nav>
+
+        <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+          {% block content %}{% endblock %}
+        </main>
+      </div>
+    </div>
+
+    {% block javascript %}
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="/admin/assets/js/script.js"></script>
+    {% endblock %}
+  </body>
+</html>

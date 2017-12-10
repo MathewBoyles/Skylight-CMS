@@ -1,0 +1,65 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/admin/index">Admin</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Products</li>
+  </ol>
+</nav>
+
+<h2>
+  Products
+  <a href="/admin/shop/products/add" class="btn btn-light btn-sm"><i class="fa fa-plus"></i> Add product</a>
+</h2>
+
+{% for alert in page.alerts %}
+<div class="alert alert-{{ alert.class }} alert-dismissible card-main fade show" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  {{ alert.message }}
+</div>
+{% endfor %}
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Sold</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in page.products %}
+      <tr>
+        <td>
+          <a href="/shop/product?id={{ product.id }}" target="_blank">
+            <img src="/assets/uploads/thumbnail/{{ product.image }}" alt="{{ product.image }}" width="50" />
+            {{ product.title }}
+          </a>
+        </td>
+        <td>${{ (product.price / 100)|number_format(2) }}</td>
+        <td>{{ product.quantity }}</td>
+        <td>{{ product.sold }}</td>
+        <td>
+          <div class="btn-group pull-right">
+            <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Actions
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="/admin/shop/products/manage?id={{ product.id }}">Manage</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/admin/shop/products/delete?id={{ product.id }}">Delete</a>
+            </div>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

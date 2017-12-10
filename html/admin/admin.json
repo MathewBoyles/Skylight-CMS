@@ -1,0 +1,185 @@
+{
+  "pages": {
+    "index": "pages",
+    "login": {
+      "active": false,
+      "template": "auth/login",
+      "middleware": ["auth/login.php"]
+    },
+    "logout": {
+      "active": false,
+      "template": "auth/layout",
+      "middleware": ["auth/logout.php"]
+    },
+    "pages": {
+      "active": "pages",
+      "template": "pages/list",
+      "middleware": ["global.php", "pages/list.php"]
+    },
+    "pages/add": {
+      "active": "pages",
+      "template": "pages/add",
+      "middleware": ["global.php", "pages/reserved.php", "pages/add.php"]
+    },
+    "pages/manage": {
+      "active": "pages",
+      "template": "pages/manage",
+      "middleware": ["global.php", "pages/reserved.php", "pages/manage.php"]
+    },
+    "pages/delete": {
+      "active": "pages",
+      "template": "pages/delete",
+      "middleware": ["global.php", "pages/delete.php"]
+    },
+    "menus": {
+      "active": "menus",
+      "template": "menus/list",
+      "middleware": ["global.php"]
+    },
+    "menus/manage": {
+      "active": "menus",
+      "template": "menus/manage",
+      "middleware": ["global.php", "menus/manage.php"]
+    },
+    "shop/orders": {
+      "active": "shop.orders",
+      "template": "shop/orders/list",
+      "middleware": ["global.php", "shop/orders/list.php"]
+    },
+    "shop/orders/view": {
+      "active": "shop.orders",
+      "template": "shop/orders/view",
+      "middleware": ["global.php", "shop/orders/view.php"]
+    },
+    "shop/products": {
+      "active": "shop.products",
+      "template": "shop/products/list",
+      "middleware": ["global.php", "shop/products/list.php"]
+    },
+    "shop/products/add": {
+      "active": "shop.products",
+      "template": "shop/products/add",
+      "middleware": ["global.php", "images.php", "shop/products/add.php"]
+    },
+    "shop/products/manage": {
+      "active": "shop.products",
+      "template": "shop/products/manage",
+      "middleware": ["global.php", "images.php", "shop/products/manage.php"]
+    },
+    "shop/products/delete": {
+      "active": "shop.products",
+      "template": "shop/products/delete",
+      "middleware": ["global.php", "shop/products/delete.php"]
+    },
+    "donations": {
+      "active": "donations",
+      "template": "donations/list",
+      "middleware": ["global.php", "donations/list.php"]
+    },
+    "donations/view": {
+      "active": "donations",
+      "template": "donations/view",
+      "middleware": ["global.php", "donations/view.php"]
+    },
+    "messages": {
+      "active": "messages",
+      "template": "messages/list",
+      "middleware": ["global.php", "messages/list.php"]
+    },
+    "messages/view": {
+      "active": "messages",
+      "template": "messages/view",
+      "middleware": ["global.php", "messages/view.php"]
+    },
+    "images": {
+      "active": "images",
+      "template": "images",
+      "middleware": ["global.php", "images/manage.php", "images.php"]
+    },
+    "theme": {
+      "active": "theme",
+      "template": "theme/list",
+      "middleware": ["global.php"]
+    },
+    "theme/config": {
+      "active": "theme",
+      "template": "theme/config",
+      "middleware": ["global.php", "images.php", "theme/config.php"]
+    },
+    "users": {
+      "active": "users",
+      "template": "users/list",
+      "middleware": ["global.php", "users/list.php"]
+    },
+    "users/add": {
+      "active": "users",
+      "template": "users/add",
+      "middleware": ["global.php", "users/add.php"]
+    },
+    "users/manage": {
+      "active": "users",
+      "template": "users/manage",
+      "middleware": ["global.php", "users/manage.php"]
+    },
+    "users/delete": {
+      "active": "users",
+      "template": "users/delete",
+      "middleware": ["global.php", "users/delete.php"]
+    }
+  },
+  "links": [
+    [{
+      "active": "pages",
+      "title": "Pages",
+      "link": "/admin/pages",
+      "external": false
+    }, {
+      "active": "menus",
+      "title": "Menu links",
+      "link": "/admin/menus",
+      "external": false
+    }],
+    [{
+      "active": "shop.orders",
+      "title": "Orders{% if page.new_orders %} <span class=\"badge badge-danger\">{{ page.new_orders }}</span>{% endif %}",
+      "link": "/admin/shop/orders",
+      "external": false
+    }, {
+      "active": "shop.products",
+      "title": "Products",
+      "link": "/admin/shop/products",
+      "external": false
+    }],
+    [{
+      "active": "donations",
+      "title": "Donations{% if page.new_donations %} <span class=\"badge badge-danger\">{{ page.new_donations }}</span>{% endif %}",
+      "link": "/admin/donations",
+      "external": false
+    }],
+    [{
+      "active": "messages",
+      "title": "Contact Messages{% if page.new_messages %} <span class=\"badge badge-danger\">{{ page.new_messages }}</span>{% endif %}",
+      "link": "/admin/messages",
+      "external": false
+    }],
+    [{
+        "active": "images",
+        "title": "Images",
+        "link": "/admin/images",
+        "external": false
+      },
+      {
+        "active": "theme",
+        "title": "Theme Settings",
+        "link": "/admin/theme",
+        "external": false
+      }
+    ],
+    [{
+      "active": "users",
+      "title": "Users",
+      "link": "/admin/users",
+      "external": false
+    }]
+  ]
+}

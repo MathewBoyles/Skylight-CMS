@@ -1,0 +1,66 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/admin/index">Admin</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Images</li>
+  </ol>
+</nav>
+
+<h2>Images</h2>
+
+{% for alert in page.alerts %}
+<div class="alert alert-{{ alert.class }} alert-dismissible card-main fade show" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  {{ alert.message }}
+</div>
+{% endfor %}
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for image in page.images %}
+      <tr>
+        <td>
+          <a href="/assets/uploads/{{ image }}" target="_blank">
+            <img src="/assets/uploads/thumbnail/{{ image }}" alt="{{ image }}" width="50" />
+            {{ image }}
+          </a>
+        </td>
+        <td>
+          <div class="pull-right">
+            <form action="/admin/images" method="POST">
+              <input type="hidden" name="csrf" value="{{ admin.csrf }}" />
+              <input type="hidden" name="delete" value="{{ image }}" />
+
+              <button class="btn btn-light btn-sm">Delete</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="alert alert-light card-main">
+  <form action="/admin/images" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="csrf" value="{{ admin.csrf }}" />
+
+    <div class="form-group">
+      <input type="file" name="file" class="form-control" accept="image/jpg,image/jpeg,image/png,image/gif">
+    </div>
+
+    <button class="btn btn-primary">Upload</button>
+  </form>
+</div>
+{% endblock %}

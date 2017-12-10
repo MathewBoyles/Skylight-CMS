@@ -1,0 +1,84 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/admin/index">Admin</a></li>
+    <li class="breadcrumb-item"><a href="/admin/shop/products">Products</a></li>
+    <li class="breadcrumb-item active">Create Product</li>
+  </ol>
+</nav>
+
+<h2>Create Product</h2>
+
+{% for alert in page.alerts %}
+<div class="alert alert-{{ alert.class }} alert-dismissible card-main fade show" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  {{ alert.message }}
+</div>
+{% endfor %}
+
+<form action="/admin/shop/products/add" method="POST">
+  <input type="hidden" name="csrf" value="{{ admin.csrf }}" />
+
+  <div class="alert alert-light card-main">
+    <label>Product title</label>
+    <input type="text" name="value[title]" class="form-control" placeholder="Product title" value="{{ page.product.title }}" required>
+  </div>
+
+  <div class="alert alert-light card-main">
+    <label>Product description</label>
+    <textarea name="value[description]" class="summernote">{{ page.product.description }}</textarea>
+  </div>
+
+  <div class="alert alert-light card-main">
+    <label>Product image</label>
+    <input type="hidden" name="value[image]" value="{{ page.product.image }}">
+    <div class="img-picker text-center" data-picker="image">
+      {% for image in page.images %}
+      <img src="/assets/uploads/thumbnail/{{ image }}" alt="{{ image }}" class="img-thumbnail{% if image == page.product.image %} active{% endif %}" data-value="{{ image }}" width="100" />
+      {% endfor %}
+    </div>
+    <div class="text-center">
+      <br />
+      <small>
+        <a href="/admin/images" target="_blank" class="editor-link">Manage images <i class="fa fa-external-link"></i></a>
+      </small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <div class="alert alert-light card-main">
+        <label>Product price</label>
+        <div class="input-group">
+          <span class="input-group-addon">$</span>
+          <input type="text" name="value[price]" class="form-control" aria-label="Product price" value="{{ page.product.price / 100 }}" required>
+        </div>
+        <small class="form-text text-muted">Price with or without decimals.</small>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="alert alert-light card-main">
+        <label>Compare price</label>
+        <div class="input-group">
+          <span class="input-group-addon">$</span>
+          <input type="text" name="value[compare_price]" class="form-control" aria-label="Compare price" value="{% if page.product.compare_price %}{{ page.product.compare_price / 100 }}{% endif %}">
+        </div>
+        <small class="form-text text-muted">A price to compare the current price to. Ideal for clearance.</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-light card-main">
+    <label>Product inventory</label>
+    <input type="number" name="value[quantity]" class="form-control" placeholder="Product inventory" value="{{ page.product.quantity }}" min="0" required>
+  </div>
+
+  <div class="text-right">
+    <button class="btn btn-primary">Create product</button>
+  </div>
+</form>
+{% endblock %}

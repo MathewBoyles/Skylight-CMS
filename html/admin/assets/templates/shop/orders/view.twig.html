@@ -1,0 +1,147 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/admin/index">Admin</a></li>
+    <li class="breadcrumb-item"><a href="/admin/shop/orders">Orders</a></li>
+    {% if page.order %}
+    <li class="breadcrumb-item active" aria-current="page">Order #{{ page.order.id }}</li>
+    {% else %}
+    <li class="breadcrumb-item active">Oops</li>
+    {% endif %}
+  </ol>
+</nav>
+
+<h2>View Order</h2>
+
+{% for alert in page.alerts %}
+<div class="alert alert-{{ alert.class }} alert-dismissible card-main fade show" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  {{ alert.message }}
+</div>
+{% endfor %}
+
+{% if page.order %}
+<div class="alert alert-light card-main">
+  <h5>Order #{{ page.order.id }}</h5>
+  <div>{{ page.order.timestamp|date("m/d/Y \- h:ia") }}</div>
+</div>
+
+<div class="alert alert-light card-main">
+  <h5>Customer</h5>
+
+  <div class="form-group">
+    <strong>Name:</strong>
+    <div>{{ page.order.user.name }}</div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <strong>Email:</strong>
+        <div>
+          <a href="mailto:{{ page.order.user.email }}">{{ page.order.user.email }}</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div class="form-group">
+        <strong>Phone:</strong>
+        <div>
+          {% if page.order.user.phone %}
+          <a href="tel:{{ page.order.user.phone }}">{{ page.order.user.phone }}</a>
+          {% else %}
+          <em>Not supplied.</em>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <strong>Address:</strong>
+    <div>{{ page.order.user.address_line1 }}</div>
+    <div>{{ page.order.user.address_line2 }}</div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <strong>City:</strong>
+        <div>{{ page.order.user.city }}</div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div class="form-group">
+        <strong>Region:</strong>
+        <div>{{ page.order.user.region }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <strong>Post code:</strong>
+        <div>{{ page.order.user.post_code }}</div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div class="form-group">
+        <strong>Country:</strong>
+        <div>{{ page.order.user.country }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Item price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in page.order.items %}
+      <tr>
+        <td>{{ item.item.title }}</td>
+        <td>${{ (item.price / 100)|number_format(2) }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>${{ ((item.price * item.quantity) / 100)|number_format(2) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="form-group text-right">
+  Order total: ${{ (page.order.total / 100)|number_format(2) }}
+</div>
+
+{% if not page.order.fulfilled %}
+<div class="alert alert-info card-main">This order has not been fulfilled.</div>
+
+<form action="/admin/shop/orders/view?id={{ page.order.id }}" method="POST">
+  <input type="hidden" name="csrf" value="{{ admin.csrf }}" />
+  <input type="hidden" name="fulfilled" value="1" />
+
+  <div class="text-right">
+    <button class="btn btn-primary">Mark as fulfilled</button>
+  </div>
+</form>
+{% endif %}
+
+{% else %}
+<div class="alert alert-light card-main">Order does not exist.</div>
+{% endif %}
+{% endblock %}

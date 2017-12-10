@@ -1,0 +1,41 @@
+.btn {
+  cursor: pointer;
+
+  &:not(.btn-lg) {
+    font-size: 0.9em;
+  }
+
+  &:not(.btn-inherit) {
+    &.btn-primary {
+      background-color: #EA7A01;
+      border-color: #EA7A01;
+      color: #fff;
+
+      &:not([disabled]) {
+        &:hover {
+          opacity: 0.9;
+        }
+
+        &:active {
+          opacity: 0.8;
+        }
+      }
+    }
+
+    &.btn-secondary {
+      background-color: #4D396E;
+      border-color: #4D396E;
+      color: #fff;
+
+      &:not([disabled]) {
+        &:hover {
+          opacity: 0.9;
+        }
+
+        &:active {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+}

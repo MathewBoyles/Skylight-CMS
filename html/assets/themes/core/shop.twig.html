@@ -1,0 +1,56 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+  <nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Shop</li>
+    </ol>
+  </nav>
+
+  {{ parent() }}
+
+  {% if page.shop %}
+  <div class="content-grid shop-grid row">
+
+    {% for item in page.shop %}
+    <div class="grid-item col-sm-6">
+      <div class="row shop-item">
+        <div class="grid-image col-6">
+          <a href="/shop/product?id={{ item.id }}">
+            <img src="/assets/uploads/{{ item.image }}">
+          </a>
+        </div>
+        <div class="grid-content col-6">
+          <a href="/shop/product?id={{ item.id }}">
+            <h2 class="item-title">{{ item.title }}</h2>
+          </a>
+          <p class="item-price">
+            ${{ (item.price / 100)|number_format(2) }}
+            {% if item.compare_price and item.compare_price > item.price %}
+            <small class="item-compare">
+              <s class="text-muted">${{ (item.compare_price / 100)|number_format(2) }}</s>
+            </small>
+            {% endif %}
+          </p>
+          {% if item.quantity > 0 or item.quantity == "-10" %}
+          <form action="/shop/cart" method="POST">
+            <input type="hidden" name="add" value="{{ item.id }}">
+
+            <button class="btn btn-primary btn-sm item-cart"{% if editor %} disabled{% endif %}>Add to Cart</button>
+          </form>
+          {% else %}
+          <span class="item-oos text-danger">Out of Stock</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="alert alert-light" role="alert">
+    There are no items in the store.
+  </div>
+  {% endif %}
+
+{% endblock %}

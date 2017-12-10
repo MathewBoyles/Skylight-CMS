@@ -1,0 +1,43 @@
+#sidebar {
+  border-right: 1px dashed #8A8A8A;
+
+  > ul {
+    padding: 0;
+
+    > li {
+      list-style: none;
+
+      & + li {
+        &:before {
+          border-top: 1px dashed #8A8A8A;
+          content: "";
+          display: block;
+          width: 100%;
+        }
+      }
+
+      > a {
+        color: #585c5c;
+        display: block;
+        margin: 10px 0;
+
+        > i {
+          color: #4D396E;
+          float: right;
+          margin-top: 4px;
+        }
+
+        &.active {
+          font-weight: bold;
+
+          > i {
+            color: #585c5c;
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 991px) {
+    display: none;
+  }
+}

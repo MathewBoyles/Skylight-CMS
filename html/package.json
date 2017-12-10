@@ -1,0 +1,18 @@
+{
+  "name": "skylight",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap": "^4.0.0-beta.2",
+    "font-awesome": "^4.7.0",
+    "popper.js": "^1.12.9",
+    "summernote": "^0.8.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

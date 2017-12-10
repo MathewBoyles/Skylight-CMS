@@ -1,0 +1,105 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/admin/index">Admin</a></li>
+    <li class="breadcrumb-item"><a href="/admin/shop/products">Products</a></li>
+    {% if page.product %}
+    <li class="breadcrumb-item active">{{ page.product.title }}</li>
+    {% else %}
+    <li class="breadcrumb-item active">Oops</li>
+    {% endif %}
+  </ol>
+</nav>
+
+<h2>Manage Product</h2>
+
+{% for alert in page.alerts %}
+<div class="alert alert-{{ alert.class }} alert-dismissible card-main fade show" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  {{ alert.message }}
+</div>
+{% endfor %}
+
+{% if page.product %}
+{% if page.product.deleted %}
+<div class="alert alert-danger card-main">This product has been deleted.</div>
+{% endif %}
+<form action="/admin/shop/products/manage?id={{ page.product.id }}" method="POST">
+  <input type="hidden" name="csrf" value="{{ admin.csrf }}" />
+
+  <div class="alert alert-light card-main">
+    <label>Product title</label>
+    <input type="text" name="value[title]" class="form-control" placeholder="Product title" value="{{ page.product.title }}" required{% if page.product.deleted %} disabled{% endif %}>
+  </div>
+
+  <div class="alert alert-light card-main">
+    <label>Product description</label>
+    {% if page.product.deleted %}
+    <div>{{ page.product.description|raw }}</div>
+    {% else %}
+    <textarea name="value[description]" class="summernote">{{ page.product.description }}</textarea>
+    {% endif %}
+  </div>
+
+  <div class="alert alert-light card-main">
+    <label>Product image</label>
+    <input type="hidden" name="value[image]" value="{{ page.product.image }}">
+    <div class="img-picker text-center" data-picker="image">
+      {% for image in page.images %}
+        {% if image == page.product.image or not page.product.deleted %}
+        <img src="/assets/uploads/thumbnail/{{ image }}" alt="{{ image }}" class="img-thumbnail{% if image == page.product.image %} active{% endif %}" data-value="{{ image }}" width="100" />
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="text-center">
+      <br />
+      <small>
+        <a href="/admin/images" target="_blank" class="editor-link">Manage images <i class="fa fa-external-link"></i></a>
+      </small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <div class="alert alert-light card-main">
+        <label>Product price</label>
+        <div class="input-group">
+          <span class="input-group-addon">$</span>
+          <input type="text" name="value[price]" class="form-control" aria-label="Product price" value="{{ page.product.price / 100 }}" required{% if page.product.deleted %} disabled{% endif %}>
+        </div>
+        <small class="form-text text-muted">Price with or without decimals.</small>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="alert alert-light card-main">
+        <label>Compare price</label>
+        <div class="input-group">
+          <span class="input-group-addon">$</span>
+          <input type="text" name="value[compare_price]" class="form-control" aria-label="Compare price" value="{{ page.product.compare_price / 100 }}"{% if page.product.deleted %} disabled{% endif %}>
+        </div>
+        <small class="form-text text-muted">A price to compare the current price to. Ideal for clearance.</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-light card-main">
+    <input type="hidden" name="original_quantity" value="{{ page.product.original_quantity }}">
+
+    <label>Product inventory</label>
+    <input type="number" name="value[quantity]" class="form-control" placeholder="Product inventory" value="{{ page.product.quantity }}" min="0" required{% if page.product.deleted %} disabled{% endif %}>
+  </div>
+
+  {% if not page.product.deleted %}
+  <div class="text-right">
+    <button class="btn btn-primary">Save changes</button>
+  </div>
+  {% endif %}
+</form>
+{% else %}
+<div class="alert alert-light card-main">Product does not exist.</div>
+{% endif %}
+{% endblock %}

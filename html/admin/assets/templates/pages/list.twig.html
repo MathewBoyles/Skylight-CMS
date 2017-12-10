@@ -1,0 +1,63 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/admin/index">Admin</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Pages</li>
+  </ol>
+</nav>
+
+<h2>
+  Pages
+  <a href="/admin/pages/add" class="btn btn-light btn-sm"><i class="fa fa-plus"></i> Add page</a>
+</h2>
+
+{% for alert in page.alerts %}
+<div class="alert alert-{{ alert.class }} alert-dismissible card-main fade show" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  {{ alert.message }}
+</div>
+{% endfor %}
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Link</th>
+        <th>Template</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in page.pages %}
+      <tr>
+        <td>{{ item.title }}</td>
+        <td>
+          <a href="/{{ item.alias }}" target="_blank">/{{ item.alias }}</a>
+        </td>
+        <td>{{ page.theme.pages[item.template].title ?? item.template }}</td>
+        <td>
+          <div class="btn-group pull-right">
+            <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Actions
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="/{{ item.alias }}?editor=true">Edit content</a>
+              {% if not item.protected %}
+              <a class="dropdown-item" href="/admin/pages/manage?id={{ item.id }}">Manage</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/admin/pages/delete?id={{ item.id }}">Delete</a>
+              {% endif %}
+            </div>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

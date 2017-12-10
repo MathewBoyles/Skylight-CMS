@@ -1,0 +1,39 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/admin/index">Admin</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Menus</li>
+  </ol>
+</nav>
+
+<h2>Menus</h2>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for menuID, menu in page.theme.navs %}
+      <tr>
+        <td>
+          <a href="/admin/menus/manage?id={{ menuID }}">{{ menu.title }}</a>
+        </td>
+        <td>{{ menu.description }}</td>
+        <td>
+          <div class="pull-right">
+            <a href="/admin/menus/manage?id={{ menuID }}" class="btn btn-light btn-sm">Manage links</a>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/admin/index">Admin</a></li>
+    <li class="breadcrumb-item"><a href="/admin/users">Users</a></li>
+    {% if page.user %}
+    <li class="breadcrumb-item"><a href="/admin/users/manage?id={{ page.user.id }}">{{ page.user.name }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Delete</li>
+    {% else %}
+    <li class="breadcrumb-item active">Oops</li>
+    {% endif %}
+  </ol>
+</nav>
+
+<h2>Delete Account</h2>
+
+{% if page.user %}
+<div>
+  {% if page.user.id == admin.id %}
+  <div class="alert alert-light card-main">You cannot delete your own account.</div>
+  {% else %}
+  <div class="alert alert-light card-main">Are you sure you wish to remove <em>{{ page.user.name }}</em>? <strong>This cannot be undone.</strong></div>
+
+  <form action="/admin/users/delete?id={{ page.user.id }}" method="POST">
+    <input type="hidden" name="csrf" value="{{ admin.csrf }}" />
+    <input type="hidden" name="delete" value="1" />
+
+    <div class="text-right form-group">
+      <button class="btn btn-danger btn-sm">Delete account</button>
+    </div>
+
+    <div class="text-right">
+      <a href="/admin/users" class="btn btn-primary btn-lg">Cancel</a>
+    </div>
+  </form>
+  {% endif %}
+</div>
+{% else %}
+<div class="alert alert-light card-main">User does not exist.</div>
+{% endif %}
+{% endblock %}

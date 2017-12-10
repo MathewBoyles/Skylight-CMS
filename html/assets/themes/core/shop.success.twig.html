@@ -1,0 +1,57 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+  <nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item"><a href="/shop">Shop</a></li>
+      <li class="breadcrumb-item"><a href="/shop/cart">Cart</a></li>
+      <li class="breadcrumb-item"><a href="/shop/cart/checkout">Checkout</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Success</li>
+    </ol>
+  </nav>
+
+  {{ parent() }}
+
+  {% if editor %}
+  <div class="alert alert-info" role="alert">
+    <small><i class="fa fa-info"></i> Editor note:</small>
+    <br />Purchased items will be shown to visitors. <em>Users cannot see this message.</em>
+  </div>
+  {% endif %}
+
+  {% if not editor %}
+  <table class="table table-responsive-sm cart-table">
+    <thead>
+      <tr>
+        <th scope="col">Item</th>
+        <th scope="col">Item price</th>
+        <th scope="col">Quanitity</th>
+        <th scope="col">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for itemID, item in page.cart.items %}
+      <tr>
+        <td>
+          <a href="/shop/product?id={{ item.item.id }}">
+            <img src="/assets/uploads/{{ item.item.image }}" width="50">
+            <span>{{ item.item.title }}</span>
+          </a>
+        </td>
+        <td>${{ (item.item.price / 100)|number_format(2) }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>${{ ((item.item.price / 100) * item.quantity)|number_format(2) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col">&nbsp;</div>
+    <div class="col-6 text-right">
+      <p>Total: ${{ (page.cart.total / 100)|number_format(2) }}</p>
+    </div>
+  </div>
+  {% endif %}
+
+{% endblock %}

@@ -1,0 +1,153 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+  <nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Donate</li>
+    </ol>
+  </nav>
+
+  {{ parent() }}
+
+  <form action="/donate/success" method="POST">
+    <input type="hidden" name="donate" value="1" />
+
+    <div class="row">
+      <div class="col-sm-6" data-toggle="buttons">
+        <div class="row">
+          <div class="col-12 col-lg-4 btn-group">
+            <label class="btn btn-secondary btn-lg btn-block">
+              <input type="radio" name="amount" autocomplete="off" value="10" checked> $10
+            </label>
+          </div>
+
+          <div class="col-12 col-lg-4 btn-group">
+            <label class="btn btn-secondary btn-lg btn-block">
+              <input type="radio" name="amount" autocomplete="off" value="20"> $20
+            </label>
+          </div>
+
+          <div class="col-12 col-lg-4 btn-group">
+            <label class="btn btn-secondary btn-lg btn-block">
+              <input type="radio" name="amount" autocomplete="off" value="30"> $30
+            </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-lg-4 btn-group">
+            <label class="btn btn-secondary btn-lg btn-block">
+              <input type="radio" name="amount" autocomplete="off" value="50"> $50
+            </label>
+          </div>
+
+          <div class="col-12 col-lg-4 btn-group">
+            <label class="btn btn-secondary btn-lg btn-block">
+              <input type="radio" name="amount" autocomplete="off" value="75"> $75
+            </label>
+          </div>
+
+          <div class="col-12 col-lg-4 btn-group">
+            <label class="btn btn-secondary btn-lg btn-block">
+              <input type="radio" name="amount" autocomplete="off" value="100"> $100
+            </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-lg-4 btn-group">
+            <label class="btn btn-secondary btn-lg btn-block">
+              <input type="radio" name="amount" autocomplete="off" value="150"> $150
+            </label>
+          </div>
+
+          <div class="col-12 col-lg-4 btn-group">
+            <label class="btn btn-secondary btn-lg btn-block">
+              <input type="radio" name="amount" autocomplete="off" value="500"> $500
+            </label>
+          </div>
+
+          <div class="col-12 col-lg-4 btn-group">
+            <label class="btn btn-secondary btn-lg btn-block">
+              <input type="radio" name="amount" autocomplete="off" value="1000"> $1,000
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label>Name <span>*</span></label>
+              <input type="text" name="name" class="form-control" placeholder="Name" required{% if editor %} disabled{% endif %}>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Email address <span>*</span></label>
+              <input type="email" name="email" class="form-control" placeholder="Email address" required{% if editor %} disabled{% endif %}>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Phone number</label>
+              <input type="text" name="phone" class="form-control" placeholder="Phone number"{% if editor %} disabled{% endif %}>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label>Card number <span>*</span></label>
+              <input type="text" name="card_number" class="form-control" placeholder="Card number" required{% if editor %} disabled{% endif %}>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Card CVV <span>*</span></label>
+              <input type="text" name="card_cvv" class="form-control" placeholder="Card CVV" required{% if editor %} disabled{% endif %}>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <label>Card expiry <span>*</span></label>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <select name="card_expiry_day" class="form-control"{% if editor %} disabled{% endif %}>
+                    {% for i in range(1, 31) %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <select name="card_expiry_month" class="form-control"{% if editor %} disabled{% endif %}>
+                    {% for i in range(1, 12) %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-right">
+          <button class="btn btn-primary"{% if editor %} disabled{% endif %}>Make Donation</button>
+        </div>
+      </div>
+    </div>
+  </form>
+{% endblock %}

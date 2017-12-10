@@ -1,0 +1,12 @@
+$primaryColor: #4d3a6e;
+@import url("/node_modules/bootstrap/dist/css/bootstrap.min.css");
+@import url("/node_modules/summernote/dist/summernote-bs4.css");
+@import "default";
+@import "fonts";
+@import "sidebar";
+@import "sortable";
+@import "picker";
+@import "theme";
+@import "cards";
+@import "login";
+@import "navbar";

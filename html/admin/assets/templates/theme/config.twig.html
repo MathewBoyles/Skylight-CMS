@@ -1,0 +1,55 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/admin/index">Admin</a></li>
+    <li class="breadcrumb-item"><a href="/admin/theme">Theme Settings</a></li>
+    {% if page.config %}
+    <li class="breadcrumb-item active" aria-current="page">{{ page.config.title }}</li>
+    {% else %}
+    <li class="breadcrumb-item active">Oops</li>
+    {% endif %}
+  </ol>
+</nav>
+
+<h2>Manage Config</h2>
+
+{% if page.config %}
+<div class="alert alert-light card-main">
+  <h5>{{ page.config.title }}</h5>
+  {% if page.config.description %}
+  <div>{{ page.config.description }}</div>
+  {% endif %}
+</div>
+
+<form action="/admin/theme/config?id={{ page.id }}" method="POST" id="themeConfig">
+  <input type="hidden" name="csrf" value="{{ admin.csrf }}" />
+
+  {% for itemID, item in page.config.options %}
+  <div class="alert alert-light card-main">
+    <div>
+      <strong>{{ item.title }}</strong>
+    </div>
+    {% if item.description %}
+    <p>{{ item.description }}</p>
+    {% endif %}
+
+    {% include "theme/config.block.twig.html" with item %}
+  </div>
+  {% endfor %}
+
+  <div class="text-right">
+    <button class="btn btn-primary">Save changes</button>
+  </div>
+</form>
+{% else %}
+<div class="alert alert-light card-main">Config not found.</div>
+{% endif %}
+{% endblock %}
+
+{% block javascript %}
+  {{ parent() }}
+
+  <script src="/admin/assets/js/jscolor.min.js"></script>
+{% endblock %}
