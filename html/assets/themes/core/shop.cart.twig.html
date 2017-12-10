@@ -19,7 +19,9 @@
   {% endif %}
 
   {% if cart.items and not editor %}
-  <form action="/shop/cart" method="POST">
+  <form action="/shop/cart" method="POST" id="cartForm">
+    <input type="hidden" name="checkout" value="0" />
+
     <table class="table table-responsive-sm cart-table">
       <thead>
         <tr>
@@ -47,7 +49,7 @@
     </table>
     <div class="row">
       <div class="col-6">
-        <button class="btn btn-light">Update cart</button>
+        <button class="btn btn-secondary btn-sm">Update cart</button>
       </div>
       <div class="col-6 text-right">
         <p>Total: ${{ (cart.total / 100)|number_format(2) }}</p>
@@ -58,7 +60,7 @@
   <div class="row">
     <div class="col">&nbsp;</div>
     <div class="col-6 col-sm-3">
-      <a href="/shop/cart/checkout" class="btn btn-primary btn-block"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Checkout</a>
+      <a href="/shop/cart/checkout" class="btn btn-primary btn-block" id="cartCheckout"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Checkout</a>
     </div>
   </div>
   {% else %}

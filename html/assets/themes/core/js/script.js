@@ -7,4 +7,11 @@ $(document).ready(function() {
   $("#videoModal").bind("hidden.bs.modal", function() {
     $("#videoModal .modal-body").empty();
   });
+
+  $("#cartCheckout").click(function(event) {
+    $("#cartForm input[name=\"checkout\"]").val("1");
+    $("#cartForm").submit();
+
+    event.preventDefault();
+  });
 });

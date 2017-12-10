@@ -13,6 +13,11 @@ if (isset($_POST["quantity"])) {
     }
 }
 
+if (($_POST["checkout"] ?? "") == "1") {
+  header("Location: /shop/cart/checkout");
+  exit;
+}
+
 if (!$pageArray["editor"]) {
     $pageArray["cart"] = Cart::list();
 }
