@@ -1,5 +1,7 @@
 <?php
-$data["alerts"] = [];
+$csrfOkay = $_POST["csrf"] ?? false;
+$csrfOkay = $csrfOkay == $app->admin["csrf"];
+
 $data["product"] = [
   "title" => $_POST["value"]["title"] ?? "",
   "description" => $_POST["value"]["description"] ?? "",
@@ -11,9 +13,6 @@ $data["product"] = [
 
 $data["product"]["price"] = is_numeric($data["product"]["price"]) ? ($data["product"]["price"] * 100) : 0;
 $data["product"]["compare_price"] = is_numeric($data["product"]["compare_price"]) ? ($data["product"]["compare_price"] * 100) : 0;
-
-$csrfOkay = $_POST["csrf"] ?? false;
-$csrfOkay = $csrfOkay == $app->admin["csrf"];
 
 $hasError = false;
 

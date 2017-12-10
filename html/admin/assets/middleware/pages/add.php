@@ -1,11 +1,9 @@
 <?php
-$data["alerts"] = array();
-
 $csrfOkay = $_POST["csrf"] ?? false;
 $csrfOkay = $csrfOkay == $app->admin["csrf"];
 
 if (isset($_POST["title"]) && isset($_POST["alias"]) && isset($_POST["template"]) && $csrfOkay) {
-    $update = array();
+    $update = [];
 
     if (!$_POST["title"]) {
         array_push($data["alerts"], [

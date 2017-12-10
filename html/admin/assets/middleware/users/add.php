@@ -1,6 +1,4 @@
 <?php
-$data["alerts"] = array();
-
 $csrfOkay = $_POST["csrf"] ?? false;
 $csrfOkay = $csrfOkay == $app->admin["csrf"];
 

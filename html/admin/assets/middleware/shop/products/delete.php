@@ -1,9 +1,8 @@
 <?php
-$data["product"] = false;
-$data["alerts"] = array();
-
 $csrfOkay = $_POST["csrf"] ?? false;
 $csrfOkay = $csrfOkay == $app->admin["csrf"];
+
+$data["product"] = false;
 
 if (isset($_GET["id"])) {
     $data["product"] = Shop::item($_GET["id"]);

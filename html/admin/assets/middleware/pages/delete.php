@@ -1,9 +1,8 @@
 <?php
-$data["page"] = false;
-$data["alerts"] = array();
-
 $csrfOkay = $_POST["csrf"] ?? false;
 $csrfOkay = $csrfOkay == $app->admin["csrf"];
+
+$data["page"] = false;
 
 if (isset($_GET["id"])) {
     $data["page"] = $db->select("pages", ["id", "title", "protected"], ["id" => $_GET["id"]]);

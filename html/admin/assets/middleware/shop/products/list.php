@@ -1,6 +1,4 @@
 <?php
-$data["alerts"] = [];
-
 $data["products"] = Shop::all(true);
 
 if (isset($_GET["msg"])) {

@@ -10,13 +10,13 @@ if (!$aliasing) {
     $page = $page[0] ?? false;
 }
 
-$pageArray = array(
+$pageArray = [
   "editor" => "",
   "id" => "",
   "title" => "",
   "theme" => $app->theme,
-  "page" => array()
-);
+  "page" => []
+];
 
 if ($aliasing) {
     $pageArray["title"] = $aliasing["title"];

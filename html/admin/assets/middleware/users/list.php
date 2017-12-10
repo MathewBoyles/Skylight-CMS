@@ -1,6 +1,4 @@
 <?php
-$data["alerts"] = [];
-
 $data["users"] = $db->select("users", "*");
 
 if (isset($_GET["msg"])) {

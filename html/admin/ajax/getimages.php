@@ -3,11 +3,11 @@
   require_once(__DIR__ . "/../../../config/require.php");
 
   header("Content-Type: text/json");
-  $response = array(
+  $response = [
     "status" => "success",
     "message" => "",
-    "data" => array()
-  );
+    "data" => []
+  ];
 
   if ($app->admin) {
       $fileScan = scandir($app->dir("html/assets/uploads/"));

@@ -4,11 +4,11 @@ class Cart {
   {
     $list = Session::get($was ? ("cart_was_" . $was) : "cart");
     $list = $list ? $list : [];
-    $return = array(
-      "items" => array(),
+    $return = [
+      "items" => [],
       "count" => 0,
       "total" => 0
-    );
+    ];
 
     foreach ($list as $item => $quantity) {
       $data = Shop::item($item);
@@ -77,13 +77,13 @@ class Cart {
     $key = rand(1000, 9999) . time();
     Cart::save($key);
 
-    $items = array();
+    $items = [];
 
     $list = Cart::list();
     foreach ($list["items"] as $itemID => $item) {
       $db->update("shop_items", [
         "sold" => $item["item"]["sold"] + $item["quantity"],
-        "quantity" => $item["item"]["quantity"] - $item["quantity"]
+        "quantity" => $item["item"]["quantity"] == "-10" ? "-10" : ($item["item"]["quantity"] - $item["quantity"])
       ], [
         "id" => $itemID
       ]);

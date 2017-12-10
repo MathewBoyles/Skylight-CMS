@@ -1,5 +1,5 @@
 <?php
-$data["images"] = array();
+$data["images"] = [];
 
 $fileScan = scandir($app->dir("html/assets/uploads/"));
 foreach ($fileScan as $file) {

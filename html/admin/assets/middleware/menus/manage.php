@@ -1,8 +1,8 @@
 <?php
-$requireReload = false;
-
 $csrfOkay = $_POST["csrf"] ?? false;
 $csrfOkay = $csrfOkay == $app->admin["csrf"];
+
+$requireReload = false;
 
 $data["menu"] = $app->themeConfig["navs"][$_GET["id"] ?? ""] ?? false;
 if ($data["menu"]) {

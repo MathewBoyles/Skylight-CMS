@@ -3,11 +3,11 @@
   require_once(__DIR__ . "/../../../config/require.php");
 
   header("Content-Type: text/json");
-  $response = array(
+  $response = [
     "status" => "success",
     "message" => "",
-    "data" => array()
-  );
+    "data" => []
+  ];
 
   if ($app->admin) {
       $response["status"] = "error";
@@ -25,7 +25,7 @@
                   $response["status"] = "success";
                   $response["message"] = "";
 
-                  $data = array();
+                  $data = [];
                   if ($page["data"]) {
                       $data = json_decode($page["data"], true);
                   }

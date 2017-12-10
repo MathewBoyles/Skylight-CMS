@@ -1,7 +1,7 @@
 <?php
 class App
 {
-    private $tmp = array();
+    private $tmp = [];
     public function error($error)
     {
         require_once($this->dir("config") . "/error.php");
@@ -35,9 +35,9 @@ class App
         $theme = $this->theme;
       }
 
-      $return = array();
+      $return = [];
 
-      if (isset($this->tmp[$theme . "_themeOptions"])) {
+      if ($this->tmp[$theme . "_themeOptions"] ?? false) {
         $return = $this->tmp[$theme . "_themeOptions"];
       } else {
         foreach ($this->themeConfig["config"] as $configOptionGroup => $configOptionData) {
@@ -95,7 +95,7 @@ class App
         $this->debug = json_decode($this->debug, true);
         $this->debug = !!$this->debug[0];
 
-        $this->config = array();
+        $this->config = [];
         $configOptions = $db->select("theme_options", "*", ["theme" => "system"]);
         foreach ($configOptions as $configOption) {
             $this->config[$configOption["name"]] = $configOption["value"];
@@ -103,7 +103,7 @@ class App
 
         $this->theme = $this->config["theme"] ?? "core";
 
-        $this->themeConfig = array();
+        $this->themeConfig = [];
         if (file_exists($this->dir("html/assets/themes/" . $this->theme) . "/theme.json")) {
             $this->themeConfig = file_get_contents($this->dir("html/assets/themes/" . $this->theme) . "/theme.json");
             $this->themeConfig = json_decode($this->themeConfig, true);
@@ -111,11 +111,11 @@ class App
             $this->error("Selected theme <em>" . $this->theme . "</em> is not installed.");
         }
 
-        $this->navs = array();
+        $this->navs = [];
         $navLinks = $db->select("nav_links", "*", ["theme" => $this->theme, "ORDER" => ["order" => "ASC", "id" => "ASC"]]);
         foreach ($navLinks as $navLink) {
             if (!isset($this->navs[$navLink["nav"]])) {
-                $this->navs[$navLink["nav"]] = array();
+                $this->navs[$navLink["nav"]] = [];
             }
 
             $navItem = $navLink;

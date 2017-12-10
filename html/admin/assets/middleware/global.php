@@ -1,4 +1,5 @@
 <?php
+$data["alerts"] = [];
 $data["theme"] = $app->themeConfig;
 
 $data["new_orders"] = $db->count("shop_orders", ["fulfilled" => "0"]);

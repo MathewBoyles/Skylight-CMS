@@ -1,16 +1,15 @@
 <?php
-$data["user"] = false;
-$data["alerts"] = array();
-
 $csrfOkay = $_POST["csrf"] ?? false;
 $csrfOkay = $csrfOkay == $app->admin["csrf"];
+
+$data["user"] = false;
 
 if (isset($_GET["id"])) {
     $data["user"] = $db->select("users", "*", ["id" => $_GET["id"]]);
     $data["user"] = $data["user"][0] ?? false;
 
     if (isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["password_confirm"]) && $csrfOkay) {
-        $update = array();
+        $update = [];
 
         if (!$_POST["name"]) {
             array_push($data["alerts"], [

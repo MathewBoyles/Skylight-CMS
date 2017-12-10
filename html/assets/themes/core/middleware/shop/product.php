@@ -3,10 +3,12 @@ if (!$pageArray["editor"]) {
     $item = $_GET["id"] ?? false;
 
     if ($item) {
-      $item = Shop::item($_GET["id"]);
-      $data["item"] = $item;
+        $item = Shop::item($_GET["id"]);
+        $data["item"] = $item;
 
-      $pageArray["title"] = $item["title"];
+        if ($item) {
+            $pageArray["title"] = $item["title"];
+        }
     }
 
     if (!$item) {

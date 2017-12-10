@@ -6,7 +6,7 @@ class Admin
         return password_hash($password, PASSWORD_DEFAULT);
     }
 
-    public static function create($email, $password, $options = array())
+    public static function create($email, $password, $options = [])
     {
         global $db;
 
@@ -41,9 +41,9 @@ class Admin
 
     public static function login($userID, $key = false)
     {
-        $data = array(
-      "id" => $userID
-    );
+        $data = [
+          "id" => $userID
+        ];
         if ($key) {
             $data["key"] = $key;
         }

@@ -1,14 +1,14 @@
 <?php
-$messages = array(
-  "loggedout" => array(
+$messages = [
+  "loggedout" => [
     "class" => "success",
     "message" => "You have been logged out."
-  ),
-  "error" => array(
+  ],
+  "error" => [
     "class" => "danger",
     "message" => "Invalid email/password combination."
-  )
-);
+  ]
+];
 
 $data["message"] = $messages[$_GET["msg"] ?? ""] ?? false;
 

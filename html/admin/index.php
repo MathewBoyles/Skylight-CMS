@@ -11,7 +11,7 @@ if (!is_array($page)) {
     $page = $adminData["pages"][$adminData["pages"][$pageID]] ?? false;
 }
 
-$pageArray = array();
+$pageArray = [];
 $pageArray["links"] = $adminData["links"];
 
 if ($page) {
@@ -20,7 +20,7 @@ if ($page) {
       exit;
     }
 
-    $pageArray["page"] = array();
+    $pageArray["page"] = [];
     $pageArray["page"]["id"] = $pageID;
     $pageArray["page"]["active"] = $page["active"];
 
