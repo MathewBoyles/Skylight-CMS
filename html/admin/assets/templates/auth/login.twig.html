@@ -17,8 +17,12 @@
           <div id="login_form">
             <div class="logo-block">
               <a href="/">
-                <img src="/assets/uploads/{{ site.logo }}" alt="{{ site.title }}">
-                <p>{{ site.title }} | Admin</p>
+                {% if site.logo %}
+                <img src="/assets/uploads/{{ site.logo }}" alt="{{ site.title }}" />
+                {% else %}
+                <h5>{{ site.title }}</h5>
+                {% endif %}
+                <p>Administration</p>
               </a>
             </div>
 

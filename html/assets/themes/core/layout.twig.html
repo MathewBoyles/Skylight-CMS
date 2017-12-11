@@ -25,7 +25,7 @@
       border-color: #{{ config.secondary_color }}!important;
     }
 
-    {% if config.secondary_color %}
+    {% if config.default_hero %}
     #hero {
       background-image: url(/assets/uploads/{{ config.default_hero }});
     }
@@ -47,7 +47,11 @@
     <nav class="navbar navbar-light bg-white justify-content-between navbar-expand-lg" id="navbar">
       <div class="container">
         <a href="/" class="navbar-brand">
+          {% if site.logo %}
           <img src="/assets/uploads/{{ site.logo }}" alt="{{ site.title }}" />
+          {% else %}
+          {{ site.title }}
+          {% endif %}
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarLinks" aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
