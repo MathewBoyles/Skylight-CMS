@@ -42,11 +42,13 @@ h2 {
   padding: 0 1rem; }
   #navbar .navbar-brand > img {
     height: 75px; }
-  #navbar .navbar-nav .nav-social {
-    padding: 7px 15px; }
-  #navbar .navbar-nav .btn {
-    padding: 0.465rem 0.75rem;
-    width: 125px; }
+  #navbar .navbar-nav {
+    margin: 10px 0; }
+    #navbar .navbar-nav .nav-social {
+      padding: 7px 15px; }
+    #navbar .navbar-nav .btn {
+      padding: 0.465rem 0.75rem;
+      width: 125px; }
   #navbar #navbarLinks .nav-sm {
     display: none; }
   @media (max-width: 991px) {
