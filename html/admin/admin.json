@@ -131,46 +131,54 @@
     [{
       "active": "pages",
       "title": "Pages",
+      "icon": "home",
       "link": "/admin/pages",
       "external": false
     }, {
       "active": "menus",
       "title": "Menu links",
+      "icon": "bars",
       "link": "/admin/menus",
       "external": false
     }],
     [{
       "active": "shop.orders",
       "title": "Orders{% if page.new_orders %} <span class=\"badge badge-danger\">{{ page.new_orders }}</span>{% endif %}",
+      "icon": "shopping-cart",
       "link": "/admin/shop/orders",
       "external": false
     }, {
       "active": "shop.products",
       "title": "Products",
+      "icon": "tag",
       "link": "/admin/shop/products",
       "external": false
     }],
     [{
       "active": "donations",
       "title": "Donations{% if page.new_donations %} <span class=\"badge badge-danger\">{{ page.new_donations }}</span>{% endif %}",
+      "icon": "dollar",
       "link": "/admin/donations",
       "external": false
     }],
     [{
       "active": "messages",
       "title": "Contact Messages{% if page.new_messages %} <span class=\"badge badge-danger\">{{ page.new_messages }}</span>{% endif %}",
+      "icon": "envelope",
       "link": "/admin/messages",
       "external": false
     }],
     [{
         "active": "images",
         "title": "Images",
+        "icon": "file-image-o",
         "link": "/admin/images",
         "external": false
       },
       {
         "active": "theme",
         "title": "Theme Settings",
+        "icon": "cog",
         "link": "/admin/theme",
         "external": false
       }
@@ -178,6 +186,7 @@
     [{
       "active": "users",
       "title": "Users",
+      "icon": "users",
       "link": "/admin/users",
       "external": false
     }]

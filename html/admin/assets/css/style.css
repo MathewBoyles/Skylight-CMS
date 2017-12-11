@@ -37,9 +37,17 @@ h1 {
       .sidebar .nav > .nav-item + .nav-item {
         margin-left: 0; }
       .sidebar .nav > .nav-item > .nav-link {
-        border-radius: 0; }
+        border-radius: 0;
+        color: #8a8a8a; }
+        .sidebar .nav > .nav-item > .nav-link > .nav-icon {
+          display: inline-block;
+          width: 20px; }
+        .sidebar .nav > .nav-item > .nav-link:hover {
+          color: #4c4c4c; }
         .sidebar .nav > .nav-item > .nav-link.active {
-          background: #36284d; }
+          background: #36284d;
+          color: #FFF;
+          font-weight: bold; }
 
 .sortable {
   list-style-type: none;
@@ -121,6 +129,10 @@ h1 {
 .navbar {
   background: #4d3a6e;
   box-shadow: 0 7px 14px 0 rgba(50, 50, 93, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07); }
+  .navbar .nav-brand > .navbar-brand > strong {
+    color: #FFF; }
+  .navbar .nav-brand > .dropdown-menu {
+    position: absolute; }
   @media (min-width: 768px) {
     .navbar > .navbar-collapse .mb-show {
       display: none; } }

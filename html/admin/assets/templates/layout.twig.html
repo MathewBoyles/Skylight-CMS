@@ -12,7 +12,17 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
-      <a class="navbar-brand" href="/admin/index">Administration</a>
+      <ul class="navbar-nav mb-hide">
+        <li class="nav-item nav-brand dropdown">
+          <a class="nav-link dropdown-toggle navbar-brand" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <strong>Administration</strong>
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/">Return to {{ site.title }}</a>
+          </div>
+        </li>
+      </ul>
+
       <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -65,6 +75,12 @@
             {% for link in links %}
             <li class="nav-item">
               <a class="nav-link{% if page.active == link.active %} active{% endif %}" href="{{ link.link }}"{% if link.external %} target="_blank"{% endif %}>
+                {% if link.icon %}
+                <span class="nav-icon">
+                  <i class="fa fa-{{ link.icon }}"></i>
+                </span>
+                {% endif %}
+
                 {{ include(template_from_string(link.title)) }}{% if page.active == link.active %} <span class="sr-only">(current)</span>{% endif %}
               </a>
             </li>

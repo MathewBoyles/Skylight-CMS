@@ -21,9 +21,21 @@
 
       > .nav-link {
         border-radius: 0;
+        color: #8a8a8a;
+
+        > .nav-icon {
+          display: inline-block;
+          width: 20px;
+        }
+
+        &:hover {
+          color: #4c4c4c;
+        }
 
         &.active {
           background: darken($primaryColor, 10);
+          color: #FFF;
+          font-weight: bold;
         }
       }
     }
