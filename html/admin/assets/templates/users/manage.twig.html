@@ -24,7 +24,9 @@
 </div>
 {% endfor %}
 
-{% if page.user %}
+{% if page.user.su and not admin.su %}
+<div class="alert alert-light card-main">You do not have permission to manage the Super User account.</div>
+{% elseif page.user %}
 <form action="/admin/users/manage?id={{ page.user.id }}" method="POST">
   <input type="hidden" name="csrf" value="{{ admin.csrf }}" />
 

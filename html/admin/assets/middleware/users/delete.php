@@ -9,7 +9,7 @@ if (isset($_GET["id"])) {
     $data["user"] = $data["user"][0] ?? false;
 
     if ($data["user"]) {
-        if ($data["user"]["id"] !== $app->admin["id"]) {
+        if ($data["user"]["id"] !== $app->admin["id"] && (!$data["user"]["su"] || $app->admin["su"])) {
             if (isset($_POST["delete"]) && $csrfOkay) {
                 $db->delete("users", ["id" => $_GET["id"]]);
 

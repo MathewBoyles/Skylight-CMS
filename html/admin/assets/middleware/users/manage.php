@@ -8,7 +8,7 @@ if (isset($_GET["id"])) {
     $data["user"] = $db->select("users", "*", ["id" => $_GET["id"]]);
     $data["user"] = $data["user"][0] ?? false;
 
-    if (isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["password_confirm"]) && $csrfOkay) {
+    if ((!$data["user"]["su"] || $app->admin["su"]) && isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["password_confirm"]) && $csrfOkay) {
         $update = [];
 
         if (!$_POST["name"]) {
@@ -25,30 +25,32 @@ if (isset($_GET["id"])) {
             ]);
         }
 
-        if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-            $emailUsed = $db->select("users", [
-              "email" => $_POST["email"]
-            ]);
-            $emailUsed = $emailUsed[0]["id"] ?? false;
+        if ($_POST["email"] !== $data["user"]["email"]) {
+            if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+                $emailUsed = $db->select("users", [
+                  "email" => $_POST["email"]
+                ]);
+                $emailUsed = $emailUsed[0]["id"] ?? false;
 
-            if ($emailUsed && $emailUsed !== $app->admin["email"]) {
+                if ($emailUsed && $emailUsed !== $app->admin["email"]) {
+                    array_push($data["alerts"], [
+                      "class" => "warning",
+                      "message" => "Email already in use"
+                    ]);
+                } else {
+                    $update["email"] = $_POST["email"];
+
+                    array_push($data["alerts"], [
+                      "class" => "success",
+                      "message" => "Email changed"
+                    ]);
+                }
+            } else {
                 array_push($data["alerts"], [
                   "class" => "warning",
-                  "message" => "Email already in use"
-                ]);
-            } else {
-                $update["email"] = $_POST["email"];
-
-                array_push($data["alerts"], [
-                  "class" => "success",
-                  "message" => "Email changed"
+                  "message" => "Invalid email address"
                 ]);
             }
-        } else {
-            array_push($data["alerts"], [
-              "class" => "warning",
-              "message" => "Invalid email address"
-            ]);
         }
 
         if ($_POST["password"] && $_POST["password"] !== $_POST["password_confirm"]) {

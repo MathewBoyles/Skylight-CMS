@@ -84,7 +84,7 @@ class App
 
         $this->admin = Session::get("admin") ?? false;
         if (is_array($this->admin)) {
-            $this->admin = $db->select("users", ["id", "email", "name", "csrf"], $this->admin);
+            $this->admin = $db->select("users", ["id", "email", "name", "csrf", "su"], $this->admin);
             $this->admin = $this->admin[0] ?? false;
         } elseif ($this->admin) {
             $this->admin = false;

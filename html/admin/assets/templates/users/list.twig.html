@@ -34,6 +34,9 @@
       {% for user in page.users %}
       <tr>
         <td>
+          {% if user.su %}
+          <i class="fa fa-shield text-warning" title="Super User"></i>
+          {% endif %}
           {{ user.name }}
           [<a href="mailto:{{ user.email }}">{{ user.email }}</a>]
         </td>
@@ -44,7 +47,7 @@
             </button>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="/admin/users/manage?id={{ user.id }}">Manage</a>
-              {% if user.id != admin.id %}
+              {% if user.id != admin.id and not user.su %}
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/admin/users/delete?id={{ user.id }}">Delete</a>
               {% endif %}

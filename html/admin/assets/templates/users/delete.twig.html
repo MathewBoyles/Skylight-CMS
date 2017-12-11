@@ -20,6 +20,8 @@
 <div>
   {% if page.user.id == admin.id %}
   <div class="alert alert-light card-main">You cannot delete your own account.</div>
+  {% elseif page.user.su %}
+  <div class="alert alert-light card-main">You cannot delete the Super User.</div>
   {% else %}
   <div class="alert alert-light card-main">Are you sure you wish to remove <em>{{ page.user.name }}</em>? <strong>This cannot be undone.</strong></div>
 
