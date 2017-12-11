@@ -8,7 +8,14 @@ if (isset($_GET["id"])) {
     $data["user"] = $db->select("users", "*", ["id" => $_GET["id"]]);
     $data["user"] = $data["user"][0] ?? false;
 
-    if ((!$data["user"]["su"] || $app->admin["su"]) && isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["password_confirm"]) && $csrfOkay) {
+    $canEdit = $data["user"]["id"] ?? false;
+    if ($data["user"]) {
+        if ($data["user"]["su"] && !$app->admin["su"]) {
+            $canEdit = false;
+        }
+    }
+
+    if ($canEdit && isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["password_confirm"]) && $csrfOkay) {
         $update = [];
 
         if (!$_POST["name"]) {
