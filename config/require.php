@@ -40,3 +40,11 @@ use Intervention\Image\ImageManager;
 $image = new ImageManager();
 
 $app = new App;
+
+if (!file_exists($app->dir("html/assets/uploads/"))) {
+    mkdir($app->dir("html/assets/uploads/"), 0777);
+}
+
+if (!file_exists($app->dir("html/assets/uploads/thumbnail/"))) {
+    mkdir($app->dir("html/assets/uploads/thumbnail/"), 0777);
+}
