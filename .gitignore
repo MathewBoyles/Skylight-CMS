@@ -4,5 +4,4 @@
 /config/cache/
 /config/database.php
 /html/node_modules/
-/html/assets/uploads/*.*
-/html/assets/uploads/*/*.*
+/html/assets/uploads/
