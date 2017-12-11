@@ -6,13 +6,13 @@ if (isset($_GET["msg"])) {
         array_push($data["alerts"], [
           "class" => "success",
           "message" => "User deleted"
-      ]);
+        ]);
     }
 
     if ($_GET["msg"] == "created") {
         array_push($data["alerts"], [
           "class" => "success",
           "message" => "Account created"
-      ]);
+        ]);
     }
 }

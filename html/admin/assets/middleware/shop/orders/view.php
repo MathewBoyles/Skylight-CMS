@@ -15,11 +15,11 @@ if (isset($_GET["id"])) {
         $data["order"]["items"] = [];
 
         foreach ($items as $itemID => $item) {
-          array_push($data["order"]["items"], [
+            array_push($data["order"]["items"], [
               "item" => Shop::item($itemID, true),
               "price" => $item["price"],
               "quantity" => $item["quantity"]
-          ]);
+            ]);
         }
 
         if ($csrfOkay && !$data["order"]["fulfilled"] && ($_POST["fulfilled"] ?? "") == "1") {
@@ -32,8 +32,8 @@ if (isset($_GET["id"])) {
             $data["new_orders"] -= 1;
 
             array_push($data["alerts"], [
-                "class" => "success",
-                "message" => "Marked as fulfilled"
+              "class" => "success",
+              "message" => "Marked as fulfilled"
             ]);
         }
     }

@@ -29,32 +29,32 @@ class App
 
     public function themeConfig($theme = false)
     {
-      global $db;
+        global $db;
 
-      if (!$theme) {
-        $theme = $this->theme;
-      }
+        if (!$theme) {
+            $theme = $this->theme;
+        }
 
-      $return = [];
+        $return = [];
 
-      if ($this->tmp[$theme . "_themeOptions"] ?? false) {
-        $return = $this->tmp[$theme . "_themeOptions"];
-      } else {
-        foreach ($this->themeConfig["config"] as $configOptionGroup => $configOptionData) {
-            foreach ($configOptionData["options"] as $configOption => $configOptionInfo) {
-                $return[$configOption] = $configOptionInfo["default"];
+        if ($this->tmp[$theme . "_themeOptions"] ?? false) {
+            $return = $this->tmp[$theme . "_themeOptions"];
+        } else {
+            foreach ($this->themeConfig["config"] as $configOptionGroup => $configOptionData) {
+                foreach ($configOptionData["options"] as $configOption => $configOptionInfo) {
+                    $return[$configOption] = $configOptionInfo["default"];
+                }
             }
+
+            $configOptions = $db->select("theme_options", "*", ["theme" => $theme]);
+            foreach ($configOptions as $configOption) {
+                $return[$configOption["name"]] = $configOption["value"];
+            }
+
+            $this->tmp[$theme . "_themeOptions"] = $return;
         }
 
-        $configOptions = $db->select("theme_options", "*", ["theme" => $theme]);
-        foreach ($configOptions as $configOption) {
-            $return[$configOption["name"]] = $configOption["value"];
-        }
-
-        $this->tmp[$theme . "_themeOptions"] = $return;
-      }
-
-      return $return;
+        return $return;
     }
 
     public function alias()
@@ -84,11 +84,11 @@ class App
 
         $this->admin = Session::get("admin") ?? false;
         if (is_array($this->admin)) {
-          $this->admin = $db->select("users", ["id", "email", "name", "csrf"], $this->admin);
-          $this->admin = $this->admin[0] ?? false;
+            $this->admin = $db->select("users", ["id", "email", "name", "csrf"], $this->admin);
+            $this->admin = $this->admin[0] ?? false;
         } elseif ($this->admin) {
-          $this->admin = false;
-          Session::delete("admin");
+            $this->admin = false;
+            Session::delete("admin");
         }
 
         $this->debug = file_get_contents($this->dir("config") . "/debug.json");

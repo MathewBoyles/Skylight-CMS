@@ -16,8 +16,8 @@ $pageArray["links"] = $adminData["links"];
 
 if ($page) {
     if (!$app->admin && $pageID !== "login") {
-      header("Location: /admin/login");
-      exit;
+        header("Location: /admin/login");
+        exit;
     }
 
     $pageArray["page"] = [];

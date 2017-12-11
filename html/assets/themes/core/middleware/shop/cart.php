@@ -14,8 +14,8 @@ if (isset($_POST["quantity"])) {
 }
 
 if (($_POST["checkout"] ?? "") == "1") {
-  header("Location: /shop/cart/checkout");
-  exit;
+    header("Location: /shop/cart/checkout");
+    exit;
 }
 
 if (!$pageArray["editor"]) {

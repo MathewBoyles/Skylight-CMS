@@ -7,25 +7,25 @@ if (isset($_POST["title"]) && isset($_POST["alias"]) && isset($_POST["template"]
 
     if (!$_POST["title"]) {
         array_push($data["alerts"], [
-            "class" => "warning",
-            "message" => "Page title required"
+          "class" => "warning",
+          "message" => "Page title required"
         ]);
     }
 
     if (!$_POST["title"]) {
         array_push($data["alerts"], [
-            "class" => "warning",
-            "message" => "Page link required"
+          "class" => "warning",
+          "message" => "Page link required"
         ]);
     } elseif (!preg_match("/^[a-zA-Z0-9_-]{3,64}$/", $_POST["alias"])) {
         array_push($data["alerts"], [
-            "class" => "warning",
-            "message" => "Page link is invalid (letters, numbers, underscores and hyphens only; 3-64 characters only)"
+          "class" => "warning",
+          "message" => "Page link is invalid (letters, numbers, underscores and hyphens only; 3-64 characters only)"
         ]);
     } elseif (substr($_POST["alias"], 0, 1) == "_" || substr($_POST["alias"], 0, 1) == "-") {
         array_push($data["alerts"], [
-            "class" => "warning",
-            "message" => "Page link cannot begin with an underscore or hyphen"
+          "class" => "warning",
+          "message" => "Page link cannot begin with an underscore or hyphen"
         ]);
     } else {
         $isTaken = false;
@@ -40,14 +40,14 @@ if (isset($_POST["title"]) && isset($_POST["alias"]) && isset($_POST["template"]
 
         if (!$isTaken) {
             $isTaken = $db->count("pages", [
-            "alias" => $_POST["alias"]
-          ]);
+              "alias" => $_POST["alias"]
+            ]);
         }
 
         if ($isTaken) {
             array_push($data["alerts"], [
-                "class" => "warning",
-                "message" => "Page link already in use"
+              "class" => "warning",
+              "message" => "Page link already in use"
             ]);
         }
     }
@@ -63,8 +63,8 @@ if (isset($_POST["title"]) && isset($_POST["alias"]) && isset($_POST["template"]
 
     if (!$pageTemplate) {
         array_push($data["alerts"], [
-            "class" => "warning",
-            "message" => "Page template invalid"
+          "class" => "warning",
+          "message" => "Page template invalid"
         ]);
     }
 

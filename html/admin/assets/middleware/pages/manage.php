@@ -15,29 +15,29 @@ if (isset($_GET["id"])) {
 
                 if (!$_POST["title"]) {
                     array_push($data["alerts"], [
-                        "class" => "warning",
-                        "message" => "Page title required"
+                      "class" => "warning",
+                      "message" => "Page title required"
                     ]);
                 } elseif ($_POST["title"] !== $data["page"]["title"]) {
                     $update["title"] = $_POST["title"];
                     $data["page"]["title"] = $_POST["title"];
 
                     array_push($data["alerts"], [
-                        "class" => "success",
-                        "message" => "Page title updated"
+                      "class" => "success",
+                      "message" => "Page title updated"
                     ]);
                 }
 
                 if ($_POST["alias"] !== $data["page"]["alias"]) {
                     if (!preg_match("/^[a-zA-Z0-9_-]{3,64}$/", $_POST["alias"])) {
                         array_push($data["alerts"], [
-                            "class" => "warning",
-                            "message" => "Page link is invalid (letters, numbers, underscores and hyphens only; 3-64 characters only)"
+                          "class" => "warning",
+                          "message" => "Page link is invalid (letters, numbers, underscores and hyphens only; 3-64 characters only)"
                         ]);
                     } elseif (substr($_POST["alias"], 0, 1) == "_" || substr($_POST["alias"], 0, 1) == "-") {
                         array_push($data["alerts"], [
-                            "class" => "warning",
-                            "message" => "Page link cannot begin with an underscore or hyphen"
+                          "class" => "warning",
+                          "message" => "Page link cannot begin with an underscore or hyphen"
                         ]);
                     } else {
                         $isTaken = false;
@@ -52,22 +52,22 @@ if (isset($_GET["id"])) {
 
                         if (!$isTaken) {
                             $isTaken = $db->count("pages", [
-                            "alias" => $_POST["alias"]
-                          ]);
+                              "alias" => $_POST["alias"]
+                            ]);
                         }
 
                         if ($isTaken) {
                             array_push($data["alerts"], [
-                                "class" => "warning",
-                                "message" => "Page link already in use"
+                              "class" => "warning",
+                              "message" => "Page link already in use"
                             ]);
                         } else {
                             $update["alias"] = $_POST["alias"];
                             $data["page"]["alias"] = $_POST["alias"];
 
                             array_push($data["alerts"], [
-                                "class" => "success",
-                                "message" => "Page link updated"
+                              "class" => "success",
+                              "message" => "Page link updated"
                             ]);
                         }
                     }
@@ -80,8 +80,8 @@ if (isset($_GET["id"])) {
                             $data["page"]["template"] = $templateID;
 
                             array_push($data["alerts"], [
-                                "class" => "success",
-                                "message" => "Page template updated"
+                              "class" => "success",
+                              "message" => "Page template updated"
                             ]);
 
                             break;

@@ -19,25 +19,25 @@ class Shop
 
     public static function item($id, $overrideDeleted = false)
     {
-      global $db;
+        global $db;
 
-      $options = [
-        "id" => $id
-      ];
-      if (!$overrideDeleted) {
-          $options["deleted"] = "0";
-      }
+        $options = [
+          "id" => $id
+        ];
+        if (!$overrideDeleted) {
+            $options["deleted"] = "0";
+        }
 
-      $item = $db->select("shop_items", "*", $options);
-      $item = $item[0] ?? [];
+        $item = $db->select("shop_items", "*", $options);
+        $item = $item[0] ?? [];
 
-      return $item;
+        return $item;
     }
 
     public static function set($id, $data)
     {
-      global $db;
+        global $db;
 
-      $db->update("shop_items", $data, ["id" => $id]);
+        $db->update("shop_items", $data, ["id" => $id]);
     }
 }

@@ -36,6 +36,7 @@ foreach (glob(__DIR__ . "/classes/*.php") as $filename) {
 }
 
 use Intervention\Image\ImageManager;
+
 $image = new ImageManager();
 
 $app = new App;

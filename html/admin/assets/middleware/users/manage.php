@@ -13,15 +13,15 @@ if (isset($_GET["id"])) {
 
         if (!$_POST["name"]) {
             array_push($data["alerts"], [
-                "class" => "warning",
-                "message" => "Name required"
+              "class" => "warning",
+              "message" => "Name required"
             ]);
         } elseif ($_POST["name"] !== $data["user"]["name"]) {
             $update["name"] = $_POST["name"];
 
             array_push($data["alerts"], [
-                "class" => "success",
-                "message" => "Name changed"
+              "class" => "success",
+              "message" => "Name changed"
             ]);
         }
 
@@ -33,35 +33,35 @@ if (isset($_GET["id"])) {
 
             if ($emailUsed && $emailUsed !== $app->admin["email"]) {
                 array_push($data["alerts"], [
-                    "class" => "warning",
-                    "message" => "Email already in use"
+                  "class" => "warning",
+                  "message" => "Email already in use"
                 ]);
             } else {
                 $update["email"] = $_POST["email"];
 
                 array_push($data["alerts"], [
-                    "class" => "success",
-                    "message" => "Email changed"
+                  "class" => "success",
+                  "message" => "Email changed"
                 ]);
             }
         } else {
             array_push($data["alerts"], [
-                "class" => "warning",
-                "message" => "Invalid email address"
+              "class" => "warning",
+              "message" => "Invalid email address"
             ]);
         }
 
         if ($_POST["password"] && $_POST["password"] !== $_POST["password_confirm"]) {
             array_push($data["alerts"], [
-                "class" => "warning",
-                "message" => "Passwords do not match"
+              "class" => "warning",
+              "message" => "Passwords do not match"
             ]);
         } elseif ($_POST["password"]) {
             $update["password"] = Admin::hash($_POST["password"]);
 
             array_push($data["alerts"], [
-                "class" => "success",
-                "message" => "Password changed"
+              "class" => "success",
+              "message" => "Password changed"
             ]);
         }
 
