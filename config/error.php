@@ -1,13 +1,15 @@
 <?php
 header("HTTP/1.0 500 Internal Server Error");
 
-$debug = file_get_contents(__DIR__ . "/debug.json");
-$debug = json_decode($debug, true);
-$debug = !!$debug[0];
+if (!isset($debug)) {
+    $debug = file_get_contents(__DIR__ . "/debug.json");
+    $debug = json_decode($debug, true);
+    $debug = !!$debug[0];
+}
+
 if (!$debug) {
     $error = "Site admin? Enable debugging to display errors.";
 }
-
 ?><!DOCTYPE html>
 <html lang="en">
     <head>
