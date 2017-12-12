@@ -50,6 +50,7 @@ if (isset($_POST["delete"]) && $csrfOkay) {
                       ]);
 
                       unlink($app->dir("html/assets/uploads/") . $file);
+                      unlink($app->dir("html/assets/uploads/thumbnail/") . $file);
                       break;
                   }
               }
