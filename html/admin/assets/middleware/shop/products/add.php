@@ -57,6 +57,8 @@ if ($csrfOkay && isset($_POST["value"])) {
               "class" => "warning",
               "message" => "Product compare price cannot be less than the display price"
             ]);
+        } else {
+            $_POST["value"]["compare_price"] = 0;
         }
 
         if (($_POST["value"]["quantity"] ?? -1) < 0 || $_POST["value"]["quantity"] == "") {
